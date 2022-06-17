@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:00:29 by ttomori           #+#    #+#             */
-/*   Updated: 2022/06/17 22:54:28 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/06/18 01:24:46 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@
 
 void	ft_putstr_fd(char const *s, int fd);
 void	print_usage(void);
+void	parse_args(int params[], int argc, char **argv);
 
 #endif
