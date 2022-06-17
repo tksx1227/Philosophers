@@ -4,8 +4,8 @@ OBJDIR	:= obj
 INCDIR	:= include
 
 SRCS	:= main.c
-OBJS	:= $(join $(OBJDIR)/, $(SRCS:.c=.o))
-DEPS	:= $(join $(OBJDIR)/, $(SRCS:.c=.d))
+OBJS	:= $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
+DEPS	:= $(addprefix $(OBJDIR)/, $(SRCS:.c=.d))
 
 CC		:= cc
 RM		:= rm -rf
