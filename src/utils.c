@@ -6,11 +6,20 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 22:53:41 by ttomori           #+#    #+#             */
-/*   Updated: 2022/06/17 23:18:29 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/06/18 01:34:51 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	init_philo_info(t_philo_info *philo_info, int params[])
+{
+	philo_info->n_of_philos = params[0];
+	philo_info->time_to_die = params[1];
+	philo_info->time_to_eat = params[2];
+	philo_info->time_to_sleep = params[3];
+	philo_info->n_of_times_each_philo_must_eat = params[4];
+}
 
 void	ft_putstr_fd(char const *s, int fd)
 {
