@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 22:53:41 by ttomori           #+#    #+#             */
-/*   Updated: 2022/06/18 01:34:51 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/06/18 14:51:43 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,17 @@ void	init_philo_info(t_philo_info *philo_info, int params[])
 	philo_info->time_to_eat = params[2];
 	philo_info->time_to_sleep = params[3];
 	philo_info->n_of_times_each_philo_must_eat = params[4];
+}
+
+unsigned long long	get_timestamp_ms(void)
+{
+	struct timeval		tv;
+	unsigned long long	ms;
+
+	if (gettimeofday(&tv, NULL) == -1)
+		exit(1);
+	ms = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	return (ms);
 }
 
 void	ft_putstr_fd(char const *s, int fd)
