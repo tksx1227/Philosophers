@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:00:29 by ttomori           #+#    #+#             */
-/*   Updated: 2022/06/18 01:35:00 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/06/18 14:46:07 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 # include <pthread.h>
 # include <limits.h>
 # include <string.h>
+
+typedef enum e_status
+{
+	DIED,
+	EATING,
+	SLEEPING,
+	THINKING,
+}	t_status;
 
 typedef struct s_philo_info
 {
