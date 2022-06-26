@@ -31,6 +31,17 @@ typedef enum e_status
 	THINKING,
 }	t_status;
 
+typedef struct s_philo
+{
+	int			index;
+	t_status	status;
+	bool		exist_my_fork;
+	pthread_t	*thread;
+	t_philo		*next;
+	size_t		eat_count;
+	t_timestamp	updated_at;
+}	t_philo;
+
 typedef struct s_gen_info
 {
 	int	n_of_philos;
