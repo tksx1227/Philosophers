@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:00:29 by ttomori           #+#    #+#             */
-/*   Updated: 2022/06/18 14:52:05 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/06/26 22:34:09 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <pthread.h>
 # include <limits.h>
 # include <string.h>
+
+typedef unsigned long long	t_timestamp;
 
 typedef enum e_status
 {
@@ -39,10 +41,10 @@ typedef struct s_philo_info
 }	t_philo_info;
 
 /* Utils */
-unsigned long long	get_timestamp_ms(void);
 void				ft_putstr_fd(char const *s, int fd);
 void				print_usage(void);
 void				parse_args(int params[], int argc, char **argv);
 void				init_philo_info(t_philo_info *philo_info, int params[]);
+t_timestamp	get_timestamp_ms(void);
 
 #endif
