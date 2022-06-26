@@ -52,10 +52,10 @@ typedef struct s_gen_info
 }	t_gen_info;
 
 /* Utils */
-void				ft_putstr_fd(char const *s, int fd);
-void				print_usage(void);
-void				parse_args(int params[], int argc, char **argv);
-void				init_philo_info(t_philo_info *philo_info, int params[]);
+int			parse_args(int params[], int argc, char **argv);
+void		ft_putstr_fd(char const *s, int fd);
+void		print_usage(void);
+void		init_gen_info(t_gen_info *gen_info, int params[]);
 t_timestamp	get_timestamp_ms(void);
 
 #endif
