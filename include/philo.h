@@ -31,14 +31,14 @@ typedef enum e_status
 	THINKING,
 }	t_status;
 
-typedef struct s_philo_info
+typedef struct s_gen_info
 {
 	int	n_of_philos;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	n_of_times_each_philo_must_eat;
-}	t_philo_info;
+}	t_gen_info;
 
 /* Utils */
 void				ft_putstr_fd(char const *s, int fd);
