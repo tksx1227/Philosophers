@@ -17,6 +17,7 @@
 # include <sys/time.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <pthread.h>
 # include <limits.h>
 # include <string.h>
@@ -25,6 +26,7 @@ typedef unsigned long long	t_timestamp;
 
 typedef enum e_status
 {
+	INIT,
 	DIED,
 	EATING,
 	SLEEPING,
@@ -57,5 +59,8 @@ void		ft_putstr_fd(char const *s, int fd);
 void		print_usage(void);
 void		init_gen_info(t_gen_info *gen_info, int params[]);
 t_timestamp	get_timestamp_ms(void);
+
+/* Philo Utils */
+t_philo		*get_new_philo(int index);
 
 #endif
