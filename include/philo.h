@@ -74,6 +74,7 @@ t_timestamp	get_timestamp_ms(void);
 
 /* Philo Utils */
 t_philo		*get_new_philo(int index);
+void		free_philos_circular(t_philo *head);
 
 /* Main Routine */
 void		*main_loop(void *content);
