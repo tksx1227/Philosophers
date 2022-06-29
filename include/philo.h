@@ -22,6 +22,8 @@
 # include <limits.h>
 # include <string.h>
 
+# define NIL -1
+
 typedef unsigned long long	t_timestamp;
 typedef enum e_status		t_status;
 typedef struct s_philo		t_philo;
@@ -45,6 +47,7 @@ struct s_philo
 	bool			exist_my_fork;
 	pthread_t		*thread;
 	pthread_mutex_t	*fork_mutex;
+	t_philo			*prev;
 	t_philo			*next;
 	size_t			eat_count;
 	t_timestamp		last_ate_at;
@@ -73,7 +76,7 @@ void		init_rule(t_rule *rule, int params[]);
 t_timestamp	get_timestamp_ms(void);
 
 /* Philo Utils */
-t_philo		*get_new_philo(int index);
+t_philo		*get_philos_circular(t_rule *rule);
 void		free_philos_circular(t_philo *head);
 
 /* Main Routine */
