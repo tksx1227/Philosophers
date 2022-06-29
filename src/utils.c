@@ -12,13 +12,13 @@
 
 #include "philo.h"
 
-void	init_gen_info(t_gen_info *gen_info, int params[])
+void	init_rule(t_rule *rule, int params[])
 {
-	gen_info->n_of_philos = params[0];
-	gen_info->time_to_die = params[1];
-	gen_info->time_to_eat = params[2];
-	gen_info->time_to_sleep = params[3];
-	gen_info->n_of_times_each_philo_must_eat = params[4];
+	rule->n_of_philos = params[0];
+	rule->time_to_die = params[1];
+	rule->time_to_eat = params[2];
+	rule->time_to_sleep = params[3];
+	rule->n_of_times_each_philo_must_eat = params[4];
 }
 
 t_timestamp	get_timestamp_ms(void)

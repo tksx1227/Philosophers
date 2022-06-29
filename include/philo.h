@@ -45,20 +45,26 @@ typedef struct s_philo
 	t_timestamp		last_ate_at;
 }	t_philo;
 
-typedef struct s_gen_info
+typedef struct s_rule
 {
 	int	n_of_philos;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	n_of_times_each_philo_must_eat;
-}	t_gen_info;
+}	t_rule;
+
+typedef struct s_obs_info
+{
+	t_philo		*head;
+	t_rule		*rule;
+}	t_obs_info;
 
 /* Utils */
 int			parse_args(int params[], int argc, char **argv);
 void		ft_putstr_fd(char const *s, int fd);
 void		print_usage(void);
-void		init_gen_info(t_gen_info *gen_info, int params[]);
+void		init_rule(t_rule *rule, int params[]);
 t_timestamp	get_timestamp_ms(void);
 
 /* Philo Utils */
