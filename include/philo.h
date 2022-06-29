@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:00:29 by ttomori           #+#    #+#             */
-/*   Updated: 2022/06/26 22:34:09 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/06/29 18:46:02 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ typedef enum e_status
 
 typedef struct s_philo
 {
-	int			index;
-	t_status	status;
-	bool		exist_my_fork;
-	pthread_t	*thread;
-	t_philo		*next;
-	size_t		eat_count;
-	t_timestamp	updated_at;
+	int				index;
+	t_status		status;
+	bool			exist_my_fork;
+	pthread_t		*thread;
+	pthread_mutex_t	*fork_mutex;
+	t_philo			*next;
+	size_t			eat_count;
+	t_timestamp		last_ate_at;
 }	t_philo;
 
 typedef struct s_gen_info
@@ -62,5 +63,8 @@ t_timestamp	get_timestamp_ms(void);
 
 /* Philo Utils */
 t_philo		*get_new_philo(int index);
+
+/* Main Routine */
+void		*main_loop(void *content);
 
 #endif
