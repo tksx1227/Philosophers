@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:00:29 by ttomori           #+#    #+#             */
-/*   Updated: 2022/06/29 18:46:02 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/06/29 23:47:19 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,22 @@
 # include <string.h>
 
 typedef unsigned long long	t_timestamp;
+typedef enum e_status		t_status;
+typedef struct s_philo		t_philo;
+typedef struct s_philo		t_philo;
+typedef struct s_rule		t_rule;
+typedef struct s_obs_info	t_obs_info;
 
-typedef enum e_status
+enum e_status
 {
 	INIT,
 	DIED,
 	EATING,
 	SLEEPING,
 	THINKING,
-}	t_status;
+};
 
-typedef struct s_philo
+struct s_philo
 {
 	int				index;
 	t_status		status;
@@ -43,22 +48,22 @@ typedef struct s_philo
 	t_philo			*next;
 	size_t			eat_count;
 	t_timestamp		last_ate_at;
-}	t_philo;
+};
 
-typedef struct s_rule
+struct s_rule
 {
 	int	n_of_philos;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	n_of_times_each_philo_must_eat;
-}	t_rule;
+};
 
-typedef struct s_obs_info
+struct s_obs_info
 {
 	t_philo		*head;
 	t_rule		*rule;
-}	t_obs_info;
+};
 
 /* Utils */
 int			parse_args(int params[], int argc, char **argv);
