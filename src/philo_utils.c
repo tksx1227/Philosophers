@@ -24,6 +24,8 @@ void	free_philos_circular(t_philo *head)
 	t_philo	*philo;
 	t_philo	*tmp;
 
+	if (head == NULL)
+		return ;
 	philo = head;
 	while (philo->index != NIL)
 	{
@@ -31,11 +33,14 @@ void	free_philos_circular(t_philo *head)
 		free_philo(philo);
 		philo = tmp;
 	}
+	if (philo->index == NIL)
+		free_philo(philo);
 }
 
 static void	free_philo(t_philo *philo)
 {
-	free(philo->fork_mutex);
 	pthread_mutex_destroy(philo->fork_mutex);
 	free(philo->fork_mutex);
+	free(philo->thread);
+	free(philo);
 }

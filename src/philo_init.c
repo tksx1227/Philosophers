@@ -6,13 +6,14 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 18:37:25 by ttomori           #+#    #+#             */
-/*   Updated: 2022/06/29 18:47:03 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/06/30 00:17:10 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 static void		init_mutex(t_philo *philo);
+static void		init_pthread(t_philo *philo);
 static t_philo	*get_new_philo(int index);
 static int		add_philo_to_end_of_circular(int index, t_philo *head);
 
@@ -62,6 +63,7 @@ static t_philo	*get_new_philo(int index)
 	philo = (t_philo *)malloc(sizeof(t_philo));
 	if (philo == NULL)
 		return (NULL);
+	memset(philo, 0, sizeof(t_philo));
 	philo->index = index;
 	philo->status = INIT;
 	philo->exist_my_fork = true;
@@ -70,13 +72,11 @@ static t_philo	*get_new_philo(int index)
 	philo->eat_count = 0;
 	philo->last_ate_at = get_timestamp_ms();
 	init_mutex(philo);
-	if (philo->fork_mutex == NULL)
+	init_pthread(philo);
+	if (philo->fork_mutex == NULL || philo->thread == NULL)
 	{
-		free(philo);
-		return (NULL);
-	}
-	if (pthread_create(philo->thread, NULL, &main_loop, NULL) != 0)
-	{
+		free(philo->fork_mutex);
+		free(philo->thread);
 		free(philo);
 		return (NULL);
 	}
@@ -87,15 +87,30 @@ static void	init_mutex(t_philo *philo)
 {
 	pthread_mutex_t	*mutex;
 
+	philo->fork_mutex = NULL;
 	mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (mutex == NULL)
-	{
-		philo->fork_mutex = NULL;
 		return ;
-	}
 	if (pthread_mutex_init(mutex, NULL) != 0)
 	{
 		free(mutex);
-		philo->fork_mutex = NULL;
+		return ;
 	}
+	philo->fork_mutex = mutex;
+}
+
+static void	init_pthread(t_philo *philo)
+{
+	pthread_t	*thread;
+
+	philo->thread = NULL;
+	thread = (pthread_t *)malloc(sizeof(pthread_t));
+	if (thread == NULL)
+		return ;
+	if (pthread_create(thread, NULL, &main_loop, NULL) != 0)
+	{
+		free(thread);
+		return ;
+	}
+	philo->thread = thread;
 }
