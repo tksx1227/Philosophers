@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:47:25 by ttomori           #+#    #+#             */
-/*   Updated: 2022/06/29 18:38:01 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/06/30 15:01:03 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,23 @@ void	*main_loop(void *content)
 
 void	free_philos_circular(t_philo *head)
 {
+	int		i;
+	int		n_of_philos;
 	t_philo	*philo;
 	t_philo	*tmp;
 
 	if (head == NULL)
 		return ;
+	i = 0;
 	philo = head;
-	while (philo->index != NIL)
+	n_of_philos = head->rule->n_of_philos;
+	while (i < n_of_philos)
 	{
 		tmp = philo->next;
 		free_philo(philo);
 		philo = tmp;
+		i++;
 	}
-	if (philo->index == NIL)
-		free_philo(philo);
 }
 
 static void	free_philo(t_philo *philo)

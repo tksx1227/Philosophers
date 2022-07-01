@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 18:37:25 by ttomori           #+#    #+#             */
-/*   Updated: 2022/06/30 00:17:10 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/01 15:28:40 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,50 @@
 
 static void		init_mutex(t_philo *philo);
 static void		init_pthread(t_philo *philo);
-static t_philo	*get_new_philo(int index);
-static int		add_philo_to_end_of_circular(int index, t_philo *head);
+static t_philo	*get_new_philo(int index, t_rule *rule);
+static int		add_philo_to_end_of_circular(int index, \
+		t_rule *rule, t_philo *head);
 
 t_philo	*get_philos_circular(t_rule *rule)
 {
 	int		i;
-	t_philo	*sentinel;
+	t_philo	*head;
 
 	if (rule->n_of_philos < 1)
 		return (NULL);
-	sentinel = get_new_philo(NIL);
-	if (sentinel == NULL)
+	i = 1;
+	head = get_new_philo(1, rule);
+	if (head == NULL)
 		return (NULL);
-	sentinel->prev = sentinel;
-	sentinel->next = sentinel;
-	i = 0;
+	head->prev = head;
+	head->next = head;
 	while (i < rule->n_of_philos)
 	{
-		if (add_philo_to_end_of_circular(i + 1, sentinel) != 0)
+		if (add_philo_to_end_of_circular(i + 1, rule, head) != 0)
 		{
-			free_philos_circular(sentinel);
+			free_philos_circular(head);
 			return (NULL);
 		}
 		i++;
 	}
-	return (sentinel->next);
+	return (head);
 }
 
-static int	add_philo_to_end_of_circular(int index, t_philo *sentinel)
+static int	add_philo_to_end_of_circular(int index, t_rule *rule, t_philo *head)
 {
 	t_philo	*philo;
 
-	philo = get_new_philo(index);
+	philo = get_new_philo(index, rule);
 	if (philo == NULL)
 		return (1);
-	philo->prev = sentinel->prev;
-	philo->next = sentinel;
-	sentinel->prev->next = philo;
-	sentinel->prev = philo;
+	philo->prev = head->prev;
+	philo->next = head;
+	head->prev->next = philo;
+	head->prev = philo;
 	return (0);
 }
 
-static t_philo	*get_new_philo(int index)
+static t_philo	*get_new_philo(int index, t_rule *rule)
 {
 	t_philo	*philo;
 
@@ -65,12 +66,13 @@ static t_philo	*get_new_philo(int index)
 		return (NULL);
 	memset(philo, 0, sizeof(t_philo));
 	philo->index = index;
-	philo->status = INIT;
+	philo->status = THINKING;
 	philo->exist_my_fork = true;
 	philo->prev = NULL;
 	philo->next = NULL;
 	philo->eat_count = 0;
 	philo->last_ate_at = get_timestamp_ms();
+	philo->rule = rule;
 	init_mutex(philo);
 	init_pthread(philo);
 	if (philo->fork_mutex == NULL || philo->thread == NULL)
@@ -107,7 +109,7 @@ static void	init_pthread(t_philo *philo)
 	thread = (pthread_t *)malloc(sizeof(pthread_t));
 	if (thread == NULL)
 		return ;
-	if (pthread_create(thread, NULL, &main_loop, NULL) != 0)
+	if (pthread_create(thread, NULL, &main_loop, philo) != 0)
 	{
 		free(thread);
 		return ;

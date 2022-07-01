@@ -22,8 +22,6 @@
 # include <limits.h>
 # include <string.h>
 
-# define NIL -1
-
 typedef unsigned long long	t_timestamp;
 typedef enum e_status		t_status;
 typedef struct s_philo		t_philo;
@@ -33,7 +31,6 @@ typedef struct s_obs_info	t_obs_info;
 
 enum e_status
 {
-	INIT,
 	DIED,
 	EATING,
 	SLEEPING,
@@ -51,21 +48,16 @@ struct s_philo
 	t_philo			*next;
 	size_t			eat_count;
 	t_timestamp		last_ate_at;
+	t_rule			*rule;
 };
 
 struct s_rule
 {
-	int	n_of_philos;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	n_of_times_each_philo_must_eat;
-};
-
-struct s_obs_info
-{
-	t_philo		*head;
-	t_rule		*rule;
+	int		n_of_philos;
+	int		time_to_die;
+	int		time_to_eat;
+	int		time_to_sleep;
+	int		n_of_times_each_philo_must_eat;
 };
 
 /* Utils */
