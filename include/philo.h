@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:00:29 by ttomori           #+#    #+#             */
-/*   Updated: 2022/06/29 23:47:19 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/06/30 15:11:08 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int			parse_args(int params[], int argc, char **argv);
 void		ft_putstr_fd(char const *s, int fd);
 void		print_usage(void);
 void		init_rule(t_rule *rule, int params[]);
+void		msleep(unsigned int ms);
 t_timestamp	get_timestamp_ms(void);
 
 /* Philo Utils */

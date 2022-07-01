@@ -6,11 +6,16 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 22:53:41 by ttomori           #+#    #+#             */
-/*   Updated: 2022/06/26 22:34:24 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/01 15:09:23 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	msleep(unsigned int ms)
+{
+	usleep(ms * 1000);
+}
 
 void	init_rule(t_rule *rule, int params[])
 {
