@@ -24,6 +24,8 @@ void	init_rule(t_rule *rule, int params[])
 	rule->time_to_eat = params[2];
 	rule->time_to_sleep = params[3];
 	rule->n_of_times_each_philo_must_eat = params[4];
+	rule->is_finished = false;
+	pthread_mutex_init(&rule->system_status_mutex, NULL);
 }
 
 t_timestamp	get_timestamp_us(void)

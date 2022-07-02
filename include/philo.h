@@ -44,11 +44,13 @@ struct s_philo
 
 struct s_rule
 {
-	int		n_of_philos;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		n_of_times_each_philo_must_eat;
+	int				n_of_philos;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				n_of_times_each_philo_must_eat;
+	bool			is_finished;
+	pthread_mutex_t	system_status_mutex;
 };
 
 /* Utils */
