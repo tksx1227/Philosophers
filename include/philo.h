@@ -69,6 +69,7 @@ void		free_philos_circular(t_philo *head);
 void		*main_loop(void *content);
 
 /* Philo Actions */
+int			return_two_forks(t_philo *philo);
 int			do_sleeping(t_philo *philo);
 int			do_thinking(t_philo *philo);
 
