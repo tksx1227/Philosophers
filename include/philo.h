@@ -77,5 +77,6 @@ int			do_thinking(t_philo *philo);
 
 /* Philo thread */
 int			start_all_threads(t_philo *head);
+int			join_all_threads(t_philo *head);
 
 #endif

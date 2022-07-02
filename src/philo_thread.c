@@ -30,3 +30,22 @@ int	start_all_threads(t_philo *head)
 	}
 	return (0);
 }
+
+int	join_all_threads(t_philo *head)
+{
+	int		i;
+	int		n_of_philos;
+	t_philo	*philo;
+
+	i = 0;
+	philo = head;
+	n_of_philos = head->rule->n_of_philos;
+	while (i < n_of_philos)
+	{
+		if (pthread_join(philo->thread, NULL))
+			return (1);
+		philo = philo->next;
+		i++;
+	}
+	return (0);
+}
