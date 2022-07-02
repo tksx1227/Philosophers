@@ -42,7 +42,7 @@ static int	check_all_philo_finished_eating(t_philo *head)
 	pthread_mutex_lock(&head->info->system_status_mutex);
 	while (i < head->info->n_of_philos)
 	{
-		if (is_finished_eating(philo))
+		if (!is_finished_eating(philo))
 		{
 			pthread_mutex_unlock(&head->info->system_status_mutex);
 			return (0);
@@ -62,7 +62,7 @@ static bool	is_finished_eating(t_philo *philo)
 	max_limit = philo->info->n_of_times_each_philo_must_eat;
 	if (max_limit < 0)
 		return (false);
-	else if (philo->eat_count < max_limit)
+	else if (max_limit < philo->eat_count)
 		return (true);
 	return (false);
 }
