@@ -73,4 +73,7 @@ int			do_thinking(t_philo *philo);
 int			start_all_threads(t_philo *head);
 int			join_all_threads(t_philo *head);
 
+/* Observer */
+void		*do_monitoring(void *content);
+
 #endif
