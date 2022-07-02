@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 22:53:41 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/02 09:41:50 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/02 15:08:48 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ void	msleep(unsigned int ms)
 	usleep(ms * 1000);
 }
 
-void	init_rule(t_rule *rule, int params[])
+void	init_global_info(t_global_info *info, int params[])
 {
-	rule->n_of_philos = params[0];
-	rule->time_to_die = params[1];
-	rule->time_to_eat = params[2];
-	rule->time_to_sleep = params[3];
-	rule->n_of_times_each_philo_must_eat = params[4];
-	rule->is_finished = false;
-	pthread_mutex_init(&rule->system_status_mutex, NULL);
+	info->n_of_philos = params[0];
+	info->time_to_die = params[1];
+	info->time_to_eat = params[2];
+	info->time_to_sleep = params[3];
+	info->n_of_times_each_philo_must_eat = params[4];
+	info->is_finished = false;
+	pthread_mutex_init(&info->system_status_mutex, NULL);
 }
 
 t_timestamp	get_timestamp_us(void)

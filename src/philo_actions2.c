@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 23:13:43 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/02 09:42:52 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/02 15:07:17 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ static int	take_a_fork(int index, t_philo *philo)
 
 	while (42)
 	{
-		pthread_mutex_lock(&philo->rule->system_status_mutex);
-		if (philo->rule->is_finished)
+		pthread_mutex_lock(&philo->info->system_status_mutex);
+		if (philo->info->is_finished)
 		{
-			pthread_mutex_unlock(&philo->rule->system_status_mutex);
+			pthread_mutex_unlock(&philo->info->system_status_mutex);
 			return (1);
 		}
 		pthread_mutex_lock(&philo->fork_mutex);
@@ -51,26 +51,26 @@ static int	take_a_fork(int index, t_philo *philo)
 			now_ms = get_timestamp_us() / 1000;
 			printf("%lld %d has taken a fork\n", now_ms, index);
 			pthread_mutex_unlock(&philo->fork_mutex);
-			pthread_mutex_unlock(&philo->rule->system_status_mutex);
+			pthread_mutex_unlock(&philo->info->system_status_mutex);
 			return (0);
 		}
 		pthread_mutex_unlock(&philo->fork_mutex);
-		pthread_mutex_unlock(&philo->rule->system_status_mutex);
+		pthread_mutex_unlock(&philo->info->system_status_mutex);
 		usleep(100);
 	}
 }
 
 static int	return_the_fork(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->rule->system_status_mutex);
-	if (philo->rule->is_finished)
+	pthread_mutex_lock(&philo->info->system_status_mutex);
+	if (philo->info->is_finished)
 	{
-		pthread_mutex_unlock(&philo->rule->system_status_mutex);
+		pthread_mutex_unlock(&philo->info->system_status_mutex);
 		return (1);
 	}
 	pthread_mutex_lock(&philo->fork_mutex);
 	philo->exist_my_fork = true;
 	pthread_mutex_unlock(&philo->fork_mutex);
-	pthread_mutex_unlock(&philo->rule->system_status_mutex);
+	pthread_mutex_unlock(&philo->info->system_status_mutex);
 	return (0);
 }

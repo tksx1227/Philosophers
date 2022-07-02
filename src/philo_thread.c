@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 09:29:42 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/02 09:40:32 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/02 15:08:29 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	start_all_threads(t_philo *head)
 
 	i = 0;
 	philo = head;
-	n_of_philos = head->rule->n_of_philos;
+	n_of_philos = head->info->n_of_philos;
 	while (i < n_of_philos)
 	{
 		if (pthread_create(&philo->thread, NULL, &main_routine, philo))
@@ -41,7 +41,7 @@ int	join_all_threads(t_philo *head)
 
 	i = 0;
 	philo = head;
-	n_of_philos = head->rule->n_of_philos;
+	n_of_philos = head->info->n_of_philos;
 	while (i < n_of_philos)
 	{
 		if (pthread_join(philo->thread, NULL))
