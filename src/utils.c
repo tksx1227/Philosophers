@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 22:53:41 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/01 15:09:23 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/02 09:41:50 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ void	init_rule(t_rule *rule, int params[])
 	rule->n_of_times_each_philo_must_eat = params[4];
 }
 
-t_timestamp	get_timestamp_ms(void)
+t_timestamp	get_timestamp_us(void)
 {
-	long long		ms;
+	t_timestamp		us;
 	struct timeval	tv;
 
 	if (gettimeofday(&tv, NULL) == -1)
-		exit(1);
-	ms = tv.tv_sec * 1000 + tv.tv_usec / 1000;
-	return (ms);
+		return (-1);
+	us = tv.tv_sec * 1000000 + tv.tv_usec;
+	return (us);
 }
 
 void	ft_putstr_fd(char const *s, int fd)

@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:00:29 by ttomori           #+#    #+#             */
-/*   Updated: 2022/06/30 15:11:08 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/02 09:47:15 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <limits.h>
 # include <string.h>
 
-typedef unsigned long long	t_timestamp;
+typedef long long			t_timestamp;
 typedef enum e_status		t_status;
 typedef struct s_philo		t_philo;
 typedef struct s_philo		t_philo;
@@ -66,7 +66,7 @@ void		ft_putstr_fd(char const *s, int fd);
 void		print_usage(void);
 void		init_rule(t_rule *rule, int params[]);
 void		msleep(unsigned int ms);
-t_timestamp	get_timestamp_ms(void);
+t_timestamp	get_timestamp_us(void);
 
 /* Philo Utils */
 t_philo		*get_philos_circular(t_rule *rule);
