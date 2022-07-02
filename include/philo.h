@@ -71,6 +71,7 @@ void		*main_loop(void *content);
 /* Philo Actions */
 int			take_two_forks(t_philo *philo);
 int			return_two_forks(t_philo *philo);
+int			do_eating(t_philo *philo);
 int			do_sleeping(t_philo *philo);
 int			do_thinking(t_philo *philo);
 
