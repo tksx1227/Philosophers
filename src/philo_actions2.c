@@ -12,6 +12,7 @@
 
 #include "philo.h"
 
+static int	take_a_fork(int index, t_philo *philo);
 static int	return_the_fork(t_philo *philo);
 
 int	take_two_forks(t_philo *philo)
