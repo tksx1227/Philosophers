@@ -68,4 +68,7 @@ void		free_philos_circular(t_philo *head);
 /* Main Routine */
 void		*main_loop(void *content);
 
+/* Philo Actions */
+int			do_thinking(t_philo *philo);
+
 #endif
