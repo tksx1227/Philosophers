@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:47:25 by ttomori           #+#    #+#             */
-/*   Updated: 2022/06/30 15:01:03 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/02 09:49:25 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	free_philos_circular(t_philo *head)
 
 static void	free_philo(t_philo *philo)
 {
-	pthread_mutex_destroy(philo->fork_mutex);
-	free(philo->fork_mutex);
-	free(philo->thread);
+	pthread_mutex_destroy(&philo->fork_mutex);
 	free(philo);
 }

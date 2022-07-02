@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:00:29 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/02 09:47:15 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/02 13:48:53 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ struct s_philo
 	int				index;
 	t_status		status;
 	bool			exist_my_fork;
-	pthread_t		*thread;
-	pthread_mutex_t	*fork_mutex;
+	pthread_t		thread;
+	pthread_mutex_t	fork_mutex;
 	t_philo			*prev;
 	t_philo			*next;
 	size_t			eat_count;
-	t_timestamp		last_ate_at;
+	t_timestamp		last_ate_at_us;
 	t_rule			*rule;
 };
 
