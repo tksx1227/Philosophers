@@ -64,7 +64,6 @@ static t_philo	*get_new_philo(int index, t_rule *rule)
 		return (NULL);
 	memset(philo, 0, sizeof(t_philo));
 	philo->index = index;
-	philo->status = THINKING;
 	philo->exist_my_fork = true;
 	philo->prev = NULL;
 	philo->next = NULL;

@@ -29,18 +29,9 @@ typedef struct s_philo		t_philo;
 typedef struct s_rule		t_rule;
 typedef struct s_obs_info	t_obs_info;
 
-enum e_status
-{
-	DIED,
-	EATING,
-	SLEEPING,
-	THINKING,
-};
-
 struct s_philo
 {
 	int				index;
-	t_status		status;
 	bool			exist_my_fork;
 	pthread_t		thread;
 	pthread_mutex_t	fork_mutex;
