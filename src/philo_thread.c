@@ -12,6 +12,8 @@
 
 #include "philo.h"
 
+static void	*main_routine(void *content);
+
 int	start_all_threads(t_philo *head)
 {
 	int		i;
@@ -23,7 +25,7 @@ int	start_all_threads(t_philo *head)
 	n_of_philos = head->rule->n_of_philos;
 	while (i < n_of_philos)
 	{
-		if (pthread_create(&philo->thread, NULL, &main_loop, philo))
+		if (pthread_create(&philo->thread, NULL, &main_routine, philo))
 			return (1);
 		philo = philo->next;
 		i++;
@@ -48,4 +50,22 @@ int	join_all_threads(t_philo *head)
 		i++;
 	}
 	return (0);
+}
+
+static void	*main_routine(void *content)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)content;
+	if (philo->index % 2 == 0)
+		usleep(500);
+	while (42)
+	{
+		if (take_two_forks(philo) \
+				|| do_eating(philo) \
+				|| return_two_forks(philo) \
+				|| do_sleeping(philo) \
+				|| do_thinking(philo))
+			return (NULL);
+	}
 }

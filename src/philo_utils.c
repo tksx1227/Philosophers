@@ -14,11 +14,6 @@
 
 static void	free_philo(t_philo *philo);
 
-void	*main_loop(void *content)
-{
-	return (NULL);
-}
-
 void	free_philos_circular(t_philo *head)
 {
 	int		i;

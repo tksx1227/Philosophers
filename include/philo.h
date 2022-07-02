@@ -65,9 +65,6 @@ t_timestamp	get_timestamp_us(void);
 t_philo		*get_philos_circular(t_rule *rule);
 void		free_philos_circular(t_philo *head);
 
-/* Main Routine */
-void		*main_loop(void *content);
-
 /* Philo Actions */
 int			take_two_forks(t_philo *philo);
 int			return_two_forks(t_philo *philo);
