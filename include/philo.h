@@ -75,4 +75,7 @@ int			do_eating(t_philo *philo);
 int			do_sleeping(t_philo *philo);
 int			do_thinking(t_philo *philo);
 
+/* Philo thread */
+int			start_all_threads(t_philo *head);
+
 #endif
