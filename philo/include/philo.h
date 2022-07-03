@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:00:29 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/03 15:10:20 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/03 15:36:52 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ struct s_global_info
 	int				time_to_sleep;
 	int				n_of_times_each_philo_must_eat;
 	bool			is_finished;
+	bool			is_setup_completed;
 	pthread_mutex_t	system_status_mutex;
 };
 

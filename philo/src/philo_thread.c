@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 09:29:42 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/03 15:09:40 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/03 15:36:29 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,17 @@ static void	*main_routine(void *content)
 	t_philo	*philo;
 
 	philo = (t_philo *)content;
+	while (!philo->info->is_setup_completed)
+		;
 	if (philo->index % 2 == 0)
 		usleep(100);
 	while (42)
 	{
 		if (take_two_forks(philo) \
-				|| do_eating(philo) \
-				|| return_two_forks(philo) \
-				|| do_sleeping(philo) \
-				|| do_thinking(philo))
+			|| do_eating(philo) \
+			|| return_two_forks(philo) \
+			|| do_sleeping(philo) \
+			|| do_thinking(philo))
 			return (NULL);
 	}
 }

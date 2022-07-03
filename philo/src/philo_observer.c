@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 23:37:44 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/03 15:09:33 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/03 15:35:58 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,15 @@ void	*do_monitoring(void *content)
 	t_philo	*head;
 
 	head = (t_philo *)content;
+	if (check_all_philo_finished_eating(head) || check_someone_dead(head))
+	{
+		head->info->is_setup_completed = true;
+		return (NULL);
+	}
+	head->info->is_setup_completed = true;
 	while (42)
 	{
-		if (check_all_philo_finished_eating(head))
-			return (NULL);
-		if (check_someone_dead(head))
+		if (check_all_philo_finished_eating(head) || check_someone_dead(head))
 			return (NULL);
 		usleep(500);
 	}
