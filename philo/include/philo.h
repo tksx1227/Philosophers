@@ -47,7 +47,6 @@ struct s_global_info
 	int				time_to_sleep;
 	int				n_of_times_each_philo_must_eat;
 	bool			is_system_stopped;
-	bool			is_setup_completed;
 	pthread_mutex_t	system_status_mutex;
 };
 

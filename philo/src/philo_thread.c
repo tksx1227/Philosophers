@@ -76,8 +76,6 @@ static void	*main_routine(void *content)
 	t_philo	*philo;
 
 	philo = (t_philo *)content;
-	while (!philo->info->is_setup_completed)
-		;
 	if (philo->index % 2 == 0)
 		usleep(300);
 	while (42)

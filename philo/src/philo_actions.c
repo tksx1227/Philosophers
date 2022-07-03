@@ -26,8 +26,10 @@ int	do_eating(t_philo *philo)
 	printf("%lld %d is eating\n", now_ms, philo->index);
 	pthread_mutex_unlock(&philo->info->system_status_mutex);
 	msleep(philo->info->time_to_eat);
+	pthread_mutex_lock(&philo->info->system_status_mutex);
 	philo->last_ate_at_us = get_timestamp_us();
 	philo->eat_count++;
+	pthread_mutex_unlock(&philo->info->system_status_mutex);
 	return (0);
 }
 

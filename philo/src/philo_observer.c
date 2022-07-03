@@ -22,12 +22,6 @@ void	*do_monitoring(void *content)
 	t_philo	*head;
 
 	head = (t_philo *)content;
-	if (is_everyone_finished_eating(head) || is_anyone_dead(head))
-	{
-		head->info->is_setup_completed = true;
-		return (NULL);
-	}
-	head->info->is_setup_completed = true;
 	while (42)
 	{
 		if (is_everyone_finished_eating(head) || is_anyone_dead(head))
