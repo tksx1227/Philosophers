@@ -6,16 +6,16 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 23:37:44 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/02 15:08:18 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/03 15:09:33 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static bool	is_dead(t_philo *philo);
-static int	check_someone_dead(t_philo *head);
 static int	check_all_philo_finished_eating(t_philo *head);
+static int	check_someone_dead(t_philo *head);
 static bool	is_finished_eating(t_philo *philo);
+static bool	is_dead(t_philo *philo);
 
 void	*do_monitoring(void *content)
 {
@@ -62,7 +62,7 @@ static bool	is_finished_eating(t_philo *philo)
 	max_limit = philo->info->n_of_times_each_philo_must_eat;
 	if (max_limit < 0)
 		return (false);
-	else if (max_limit < philo->eat_count)
+	else if ((size_t)max_limit <= philo->eat_count)
 		return (true);
 	return (false);
 }

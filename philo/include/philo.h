@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:00:29 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/02 15:06:51 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/03 15:10:20 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ struct s_philo
 	pthread_mutex_t	fork_mutex;
 	t_philo			*prev;
 	t_philo			*next;
-	int				eat_count;
+	size_t			eat_count;
 	t_timestamp		last_ate_at_us;
 	t_global_info	*info;
 };
@@ -52,15 +52,14 @@ struct s_global_info
 
 /* Utils */
 int			parse_args(int params[], int argc, char **argv);
-void		ft_putstr_fd(char const *s, int fd);
+int			init_global_info(t_global_info *info, int params[]);
 void		print_usage(void);
-void		init_global_info(t_global_info *info, int params[]);
 void		msleep(unsigned int ms);
 t_timestamp	get_timestamp_us(void);
 
 /* Philo Utils */
-t_philo		*get_philos_circular(t_global_info *info);
-void		free_philos_circular(t_philo *head);
+int			init_philos_circular(t_philo **head_p, t_global_info *info);
+int			free_philos_circular(t_philo *head);
 
 /* Philo Actions */
 int			take_two_forks(t_philo *philo);
@@ -72,6 +71,7 @@ int			do_thinking(t_philo *philo);
 /* Philo thread */
 int			start_all_threads(t_philo *head);
 int			join_all_threads(t_philo *head);
+int			destroy_all_mutex(t_philo *head);
 
 /* Observer */
 void		*do_monitoring(void *content);
