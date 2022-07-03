@@ -14,7 +14,7 @@
 
 static void	*main_routine(void *content);
 
-int	start_all_threads(t_philo *head)
+int	create_philo_threads(t_philo *head)
 {
 	int		i;
 	int		n_of_philos;
@@ -79,7 +79,7 @@ static void	*main_routine(void *content)
 	while (!philo->info->is_setup_completed)
 		;
 	if (philo->index % 2 == 0)
-		usleep(100);
+		usleep(300);
 	while (42)
 	{
 		if (take_two_forks(philo) \

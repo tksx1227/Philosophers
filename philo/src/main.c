@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:00:35 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/03 15:08:55 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/03 15:35:32 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (pthread_create(&observer, NULL, &do_monitoring, head))
 		return (1);
-	if (start_all_threads(head))
+	if (create_philo_threads(head))
 		return (1);
 	if (pthread_join(observer, NULL) || join_all_threads(head))
 		return (1);

@@ -39,7 +39,7 @@ static int	take_a_fork(int index, t_philo *philo)
 	while (42)
 	{
 		pthread_mutex_lock(&philo->info->system_status_mutex);
-		if (philo->info->is_finished)
+		if (philo->info->is_system_stopped)
 		{
 			pthread_mutex_unlock(&philo->info->system_status_mutex);
 			return (1);
@@ -63,7 +63,7 @@ static int	take_a_fork(int index, t_philo *philo)
 static int	return_the_fork(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->info->system_status_mutex);
-	if (philo->info->is_finished)
+	if (philo->info->is_system_stopped)
 	{
 		pthread_mutex_unlock(&philo->info->system_status_mutex);
 		return (1);

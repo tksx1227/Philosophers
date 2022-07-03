@@ -46,7 +46,7 @@ struct s_global_info
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				n_of_times_each_philo_must_eat;
-	bool			is_finished;
+	bool			is_system_stopped;
 	bool			is_setup_completed;
 	pthread_mutex_t	system_status_mutex;
 };
@@ -70,7 +70,7 @@ int			do_sleeping(t_philo *philo);
 int			do_thinking(t_philo *philo);
 
 /* Philo thread */
-int			start_all_threads(t_philo *head);
+int			create_philo_threads(t_philo *head);
 int			join_all_threads(t_philo *head);
 int			destroy_all_mutex(t_philo *head);
 

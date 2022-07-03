@@ -12,8 +12,8 @@
 
 #include "philo.h"
 
-static int	check_all_philo_finished_eating(t_philo *head);
-static int	check_someone_dead(t_philo *head);
+static bool	is_everyone_finished_eating(t_philo *head);
+static bool	is_anyone_dead(t_philo *head);
 static bool	is_finished_eating(t_philo *philo);
 static bool	is_dead(t_philo *philo);
 
@@ -22,7 +22,7 @@ void	*do_monitoring(void *content)
 	t_philo	*head;
 
 	head = (t_philo *)content;
-	if (check_all_philo_finished_eating(head) || check_someone_dead(head))
+	if (is_everyone_finished_eating(head) || is_anyone_dead(head))
 	{
 		head->info->is_setup_completed = true;
 		return (NULL);
@@ -30,13 +30,13 @@ void	*do_monitoring(void *content)
 	head->info->is_setup_completed = true;
 	while (42)
 	{
-		if (check_all_philo_finished_eating(head) || check_someone_dead(head))
+		if (is_everyone_finished_eating(head) || is_anyone_dead(head))
 			return (NULL);
-		usleep(500);
+		usleep(300);
 	}
 }
 
-static int	check_all_philo_finished_eating(t_philo *head)
+static bool	is_everyone_finished_eating(t_philo *head)
 {
 	int		i;
 	t_philo	*philo;
@@ -49,14 +49,37 @@ static int	check_all_philo_finished_eating(t_philo *head)
 		if (!is_finished_eating(philo))
 		{
 			pthread_mutex_unlock(&head->info->system_status_mutex);
-			return (0);
+			return (false);
 		}
 		philo = philo->next;
 		i++;
 	}
-	head->info->is_finished = true;
+	head->info->is_system_stopped = true;
 	pthread_mutex_unlock(&head->info->system_status_mutex);
-	return (1);
+	return (true);
+}
+
+static bool	is_anyone_dead(t_philo *head)
+{
+	int		i;
+	t_philo	*philo;
+
+	i = 0;
+	philo = head;
+	pthread_mutex_lock(&philo->info->system_status_mutex);
+	while (i < head->info->n_of_philos)
+	{
+		if (is_dead(philo))
+		{
+			head->info->is_system_stopped = true;
+			pthread_mutex_unlock(&head->info->system_status_mutex);
+			return (true);
+		}
+		philo = philo->next;
+		i++;
+	}
+	pthread_mutex_unlock(&head->info->system_status_mutex);
+	return (false);
 }
 
 static bool	is_finished_eating(t_philo *philo)
@@ -71,29 +94,6 @@ static bool	is_finished_eating(t_philo *philo)
 	return (false);
 }
 
-static int	check_someone_dead(t_philo *head)
-{
-	int		i;
-	t_philo	*philo;
-
-	i = 0;
-	philo = head;
-	pthread_mutex_lock(&philo->info->system_status_mutex);
-	while (i < head->info->n_of_philos)
-	{
-		if (is_dead(philo))
-		{
-			head->info->is_finished = true;
-			pthread_mutex_unlock(&head->info->system_status_mutex);
-			return (1);
-		}
-		philo = philo->next;
-		i++;
-	}
-	pthread_mutex_unlock(&head->info->system_status_mutex);
-	return (0);
-}
-
 static bool	is_dead(t_philo *philo)
 {
 	t_timestamp	now_us;
@@ -103,7 +103,7 @@ static bool	is_dead(t_philo *philo)
 	time_to_die_us = philo->info->time_to_die * 1000;
 	if (time_to_die_us < now_us - philo->last_ate_at_us)
 	{
-		printf("%lld %d is died...\n", now_us / 1000, philo->index);
+		printf("%lld %d died\n", now_us / 1000, philo->index);
 		return (true);
 	}
 	return (false);

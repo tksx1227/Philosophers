@@ -26,7 +26,7 @@ int	init_global_info(t_global_info *info, int params[])
 	info->time_to_eat = params[2];
 	info->time_to_sleep = params[3];
 	info->n_of_times_each_philo_must_eat = params[4];
-	info->is_finished = false;
+	info->is_system_stopped = false;
 	info->is_setup_completed = false;
 	if (pthread_mutex_init(&info->system_status_mutex, NULL))
 		return (1);

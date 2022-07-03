@@ -17,7 +17,7 @@ int	do_eating(t_philo *philo)
 	t_timestamp	now_ms;
 
 	pthread_mutex_lock(&philo->info->system_status_mutex);
-	if (philo->info->is_finished)
+	if (philo->info->is_system_stopped)
 	{
 		pthread_mutex_unlock(&philo->info->system_status_mutex);
 		return (1);
@@ -36,7 +36,7 @@ int	do_sleeping(t_philo *philo)
 	t_timestamp	now_ms;
 
 	pthread_mutex_lock(&philo->info->system_status_mutex);
-	if (philo->info->is_finished)
+	if (philo->info->is_system_stopped)
 	{
 		pthread_mutex_unlock(&philo->info->system_status_mutex);
 		return (1);
@@ -53,7 +53,7 @@ int	do_thinking(t_philo *philo)
 	t_timestamp	now_ms;
 
 	pthread_mutex_lock(&philo->info->system_status_mutex);
-	if (philo->info->is_finished)
+	if (philo->info->is_system_stopped)
 	{
 		pthread_mutex_unlock(&philo->info->system_status_mutex);
 		return (1);
