@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 22:53:41 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/03 15:36:45 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/04 17:58:48 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 static void	ft_putstr_fd(char const *s, int fd);
 
-void	msleep(unsigned int ms)
+int	msleep(unsigned int ms)
 {
-	usleep(ms * 1000);
+	int	ret;
+
+	ret = usleep(ms * 1000);
+	return (ret);
 }
 
 int	init_global_info(t_global_info *info, int params[])

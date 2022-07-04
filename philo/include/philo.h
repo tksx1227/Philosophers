@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:00:29 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/03 15:36:52 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/04 17:58:56 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ struct s_global_info
 /* Utils */
 int			parse_args(int params[], int argc, char **argv);
 int			init_global_info(t_global_info *info, int params[]);
+int			msleep(unsigned int ms);
 void		print_usage(void);
-void		msleep(unsigned int ms);
 t_timestamp	get_timestamp_us(void);
 
 /* Philo Utils */
