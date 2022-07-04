@@ -26,7 +26,7 @@ void	*do_monitoring(void *content)
 	{
 		if (is_everyone_finished_eating(head) || is_anyone_dead(head))
 			return (NULL);
-		usleep(300);
+		usleep(500);
 	}
 }
 
@@ -37,17 +37,14 @@ static bool	is_everyone_finished_eating(t_philo *head)
 
 	i = 0;
 	philo = head;
-	pthread_mutex_lock(&head->info->system_status_mutex);
 	while (i < head->info->n_of_philos)
 	{
 		if (!is_finished_eating(philo))
-		{
-			pthread_mutex_unlock(&head->info->system_status_mutex);
 			return (false);
-		}
 		philo = philo->next;
 		i++;
 	}
+	pthread_mutex_lock(&head->info->system_status_mutex);
 	head->info->is_system_stopped = true;
 	pthread_mutex_unlock(&head->info->system_status_mutex);
 	return (true);
@@ -60,11 +57,12 @@ static bool	is_anyone_dead(t_philo *head)
 
 	i = 0;
 	philo = head;
-	pthread_mutex_lock(&philo->info->system_status_mutex);
 	while (i < head->info->n_of_philos)
 	{
 		if (is_dead(philo))
 		{
+			pthread_mutex_lock(&philo->info->system_status_mutex);
+			printf("%lld %d died\n", get_current_time_us() / 1000, philo->index);
 			head->info->is_system_stopped = true;
 			pthread_mutex_unlock(&head->info->system_status_mutex);
 			return (true);
@@ -72,33 +70,37 @@ static bool	is_anyone_dead(t_philo *head)
 		philo = philo->next;
 		i++;
 	}
-	pthread_mutex_unlock(&head->info->system_status_mutex);
 	return (false);
 }
 
 static bool	is_finished_eating(t_philo *philo)
 {
-	int	max_limit;
+	int		max_limit;
+	bool	ret;
 
+	ret = false;
 	max_limit = philo->info->n_of_times_each_philo_must_eat;
 	if (max_limit < 0)
-		return (false);
-	else if ((size_t)max_limit <= philo->eat_count)
-		return (true);
-	return (false);
+		return (ret);
+	pthread_mutex_lock(&philo->info->system_status_mutex);
+	if ((size_t)max_limit <= philo->eat_count)
+		ret = true;
+	pthread_mutex_unlock(&philo->info->system_status_mutex);
+	return (ret);
 }
 
 static bool	is_dead(t_philo *philo)
 {
+	bool		ret;
 	t_timestamp	current_time_us;
 	t_timestamp	time_to_die_us;
 
+	ret = false;
 	current_time_us = get_current_time_us();
 	time_to_die_us = philo->info->time_to_die * 1000;
+	pthread_mutex_lock(&philo->info->system_status_mutex);
 	if (time_to_die_us < current_time_us - philo->last_ate_at_us)
-	{
-		printf("%lld %d died\n", current_time_us / 1000, philo->index);
-		return (true);
-	}
-	return (false);
+		ret = true;
+	pthread_mutex_unlock(&philo->info->system_status_mutex);
+	return (ret);
 }
