@@ -90,7 +90,7 @@ static t_philo	*get_new_philo(int index, t_global_info *info)
 	philo->prev = NULL;
 	philo->next = NULL;
 	philo->eat_count = 0;
-	philo->last_ate_at_us = get_timestamp_us();
+	philo->last_ate_at_us = get_current_time_us();
 	philo->info = info;
 	if (pthread_mutex_init(&philo->fork_mutex, NULL))
 	{

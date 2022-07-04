@@ -90,14 +90,14 @@ static bool	is_finished_eating(t_philo *philo)
 
 static bool	is_dead(t_philo *philo)
 {
-	t_timestamp	now_us;
+	t_timestamp	current_time_us;
 	t_timestamp	time_to_die_us;
 
-	now_us = get_timestamp_us();
+	current_time_us = get_current_time_us();
 	time_to_die_us = philo->info->time_to_die * 1000;
-	if (time_to_die_us < now_us - philo->last_ate_at_us)
+	if (time_to_die_us < current_time_us - philo->last_ate_at_us)
 	{
-		printf("%lld %d died\n", now_us / 1000, philo->index);
+		printf("%lld %d died\n", current_time_us / 1000, philo->index);
 		return (true);
 	}
 	return (false);

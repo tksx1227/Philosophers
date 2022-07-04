@@ -55,7 +55,7 @@ int			parse_args(int params[], int argc, char **argv);
 int			init_global_info(t_global_info *info, int params[]);
 int			msleep(unsigned int ms);
 void		print_usage(void);
-t_timestamp	get_timestamp_us(void);
+t_timestamp	get_current_time_us(void);
 
 /* Philo Utils */
 int			init_philos_circular(t_philo **head_p, t_global_info *info);

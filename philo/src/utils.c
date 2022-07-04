@@ -35,7 +35,7 @@ int	init_global_info(t_global_info *info, int params[])
 	return (0);
 }
 
-t_timestamp	get_timestamp_us(void)
+t_timestamp	get_current_time_us(void)
 {
 	t_timestamp		us;
 	struct timeval	tv;

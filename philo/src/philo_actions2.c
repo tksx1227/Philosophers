@@ -34,8 +34,6 @@ int	return_two_forks(t_philo *philo)
 
 static int	take_a_fork(int index, t_philo *philo)
 {
-	t_timestamp	now_ms;
-
 	while (42)
 	{
 		pthread_mutex_lock(&philo->info->system_status_mutex);
@@ -48,8 +46,7 @@ static int	take_a_fork(int index, t_philo *philo)
 		if (philo->exist_my_fork)
 		{
 			philo->exist_my_fork = false;
-			now_ms = get_timestamp_us() / 1000;
-			printf("%lld %d has taken a fork\n", now_ms, index);
+			printf("%lld %d has taken a fork\n", get_current_time_us() / 1000, index);
 			pthread_mutex_unlock(&philo->fork_mutex);
 			pthread_mutex_unlock(&philo->info->system_status_mutex);
 			return (0);
