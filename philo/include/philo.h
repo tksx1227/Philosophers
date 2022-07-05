@@ -22,8 +22,8 @@
 # include <limits.h>
 # include <string.h>
 
-# define CREATE_PHILO_INTERVAL 100
-# define OBSERVE_INTERVAL 1000
+# define CREATE_PHILO_INTERVAL 1500
+# define OBSERVE_INTERVAL 3000
 
 typedef long long				t_timestamp;
 typedef enum e_action			t_action;
