@@ -22,6 +22,15 @@ void	*do_monitoring(void *content)
 	t_philo	*head;
 
 	head = (t_philo *)content;
+	if (head->info->n_of_times_each_philo_must_eat < 0)
+	{
+		while (42)
+		{
+			if (is_anyone_dead(head))
+				return (NULL);
+			usleep(OBSERVE_INTERVAL);
+		}
+	}
 	while (42)
 	{
 		if (is_everyone_finished_eating(head) || is_anyone_dead(head))
@@ -78,31 +87,29 @@ static bool	is_anyone_dead(t_philo *head)
 static bool	is_finished_eating(t_philo *philo)
 {
 	int		max_limit;
-	bool	ret;
+	size_t	eat_count;
 
-	ret = false;
-	max_limit = philo->info->n_of_times_each_philo_must_eat;
-	if (max_limit < 0)
-		return (ret);
 	pthread_mutex_lock(&philo->info->system_status_mutex);
-	if ((size_t)max_limit <= philo->eat_count)
-		ret = true;
+	eat_count = philo->eat_count;
 	pthread_mutex_unlock(&philo->info->system_status_mutex);
-	return (ret);
+	max_limit = philo->info->n_of_times_each_philo_must_eat;
+	if ((size_t)max_limit <= eat_count)
+		return (true);
+	return (false);
 }
 
 static bool	is_dead(t_philo *philo)
 {
-	bool		ret;
+	t_timestamp	last_ate_at_us;
 	t_timestamp	current_time_us;
 	t_timestamp	time_to_die_us;
 
-	ret = false;
+	pthread_mutex_lock(&philo->info->system_status_mutex);
+	last_ate_at_us = philo->last_ate_at_us;
+	pthread_mutex_unlock(&philo->info->system_status_mutex);
 	current_time_us = get_current_time_us();
 	time_to_die_us = philo->info->time_to_die * 1000;
-	pthread_mutex_lock(&philo->info->system_status_mutex);
-	if (time_to_die_us < current_time_us - philo->last_ate_at_us)
-		ret = true;
-	pthread_mutex_unlock(&philo->info->system_status_mutex);
-	return (ret);
+	if (time_to_die_us < current_time_us - last_ate_at_us)
+		return (true);
+	return (false);
 }

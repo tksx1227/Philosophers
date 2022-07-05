@@ -28,9 +28,9 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_philos_circular(&head, &info))
 		return (1);
-	if (pthread_create(&observer, NULL, &do_monitoring, head))
-		return (1);
 	if (create_philo_threads(head))
+		return (1);
+	if (pthread_create(&observer, NULL, &do_monitoring, head))
 		return (1);
 	if (pthread_join(observer, NULL) || join_all_threads(head))
 		return (1);
