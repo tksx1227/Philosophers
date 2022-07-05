@@ -22,6 +22,10 @@ PHILO	:= $(BINDIR)/philo
 CFLAGS	:= -Wall -Wextra -Werror -MMD -MP
 LINKLIB	:= -pthread
 
+ifdef DEV
+	CFLAGS += -g -fsanitize=thread
+endif
+
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(LINKLIB) $(addprefix -I, $(INCDIR)) -c $< -o $@
 
@@ -55,5 +59,9 @@ fclean: clean
 
 .PHONY: re
 re: fclean all
+
+.PHONY: dev
+dev:
+	@$(MAKE) DEV=1
 
 -include $(DEPS)
