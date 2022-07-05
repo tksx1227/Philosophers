@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 22:53:41 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/05 00:58:12 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/06 00:09:13 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	msleep_precise(unsigned int ms)
 		left_time_us = end_time_us - get_current_time_us();
 		if (left_time_us <= 0)
 			break ;
-		if(usleep(left_time_us / 2))
+		if (usleep(left_time_us / 2))
 			return (1);
 	}
 	return (0);
