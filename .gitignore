@@ -56,3 +56,6 @@ bin
 
 # Object directory
 obj
+
+# VSCode
+.vscode
