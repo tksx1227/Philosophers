@@ -26,7 +26,7 @@ void	*do_monitoring(void *content)
 	{
 		if (is_everyone_finished_eating(head) || is_anyone_dead(head))
 			return (NULL);
-		usleep(500);
+		usleep(OBSERVE_INTERVAL);
 	}
 }
 
