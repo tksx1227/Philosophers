@@ -23,8 +23,17 @@
 # include <string.h>
 
 typedef long long				t_timestamp;
+typedef enum e_action			t_action;
 typedef struct s_philo			t_philo;
 typedef struct s_global_info	t_global_info;
+
+enum e_action
+{
+	TAKE_A_FORK,
+	EATING,
+	SLEEPING,
+	THINKING,
+};
 
 struct s_philo
 {
@@ -66,6 +75,7 @@ int			release_two_forks(t_philo *philo);
 int			do_eating(t_philo *philo);
 int			do_sleeping(t_philo *philo);
 int			do_thinking(t_philo *philo);
+int			print_action(t_global_info *info, t_action type, int master_index);
 
 /* Philo thread */
 int			create_philo_threads(t_philo *head);

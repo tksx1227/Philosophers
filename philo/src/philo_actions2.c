@@ -39,19 +39,12 @@ int	release_two_forks(t_philo *philo)
 
 static int	take_a_fork(int master_index, t_philo *philo)
 {
-	t_timestamp	current_time_ms;
-
 	pthread_mutex_lock(&philo->fork_mutex);
-	pthread_mutex_lock(&philo->info->system_status_mutex);
-	if (philo->info->is_system_stopped)
+	if (print_action(philo->info, TAKE_A_FORK, master_index))
 	{
 		pthread_mutex_unlock(&philo->fork_mutex);
-		pthread_mutex_unlock(&philo->info->system_status_mutex);
 		return (1);
 	}
-	current_time_ms = get_current_time_us() / 1000;
-	printf("%lld %d has taken a fork\n", current_time_ms, master_index);
-	pthread_mutex_unlock(&philo->info->system_status_mutex);
 	return (0);
 }
 

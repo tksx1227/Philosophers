@@ -14,18 +14,11 @@
 
 int	do_eating(t_philo *philo)
 {
-	t_timestamp	current_time_ms;
-
-	pthread_mutex_lock(&philo->info->system_status_mutex);
-	if (philo->info->is_system_stopped)
+	if (print_action(philo->info, EATING, philo->index))
 	{
 		release_two_forks(philo);
-		pthread_mutex_unlock(&philo->info->system_status_mutex);
 		return (1);
 	}
-	current_time_ms = get_current_time_us() / 1000;
-	printf("%lld %d is eating\n", current_time_ms, philo->index);
-	pthread_mutex_unlock(&philo->info->system_status_mutex);
 	msleep_precise(philo->info->time_to_eat);
 	pthread_mutex_lock(&philo->info->system_status_mutex);
 	philo->last_ate_at_us = get_current_time_us();
@@ -36,33 +29,36 @@ int	do_eating(t_philo *philo)
 
 int	do_sleeping(t_philo *philo)
 {
-	t_timestamp	current_time_ms;
-
-	pthread_mutex_lock(&philo->info->system_status_mutex);
-	if (philo->info->is_system_stopped)
-	{
-		pthread_mutex_unlock(&philo->info->system_status_mutex);
+	if (print_action(philo->info, SLEEPING, philo->index))
 		return (1);
-	}
-	current_time_ms = get_current_time_us() / 1000;
-	printf("%lld %d is sleeping\n", current_time_ms, philo->index);
-	pthread_mutex_unlock(&philo->info->system_status_mutex);
 	msleep_precise(philo->info->time_to_sleep);
 	return (0);
 }
 
 int	do_thinking(t_philo *philo)
 {
-	t_timestamp	get_current_time_ms;
+	return (print_action(philo->info, THINKING, philo->index));
+}
 
-	pthread_mutex_lock(&philo->info->system_status_mutex);
-	if (philo->info->is_system_stopped)
+int	print_action(t_global_info *info, t_action action, int master_index)
+{
+	t_timestamp	current_time_ms;
+
+	pthread_mutex_lock(&info->system_status_mutex);
+	if (info->is_system_stopped)
 	{
-		pthread_mutex_unlock(&philo->info->system_status_mutex);
+		pthread_mutex_unlock(&info->system_status_mutex);
 		return (1);
 	}
-	get_current_time_ms = get_current_time_us() / 1000;
-	printf("%lld %d is thinking\n", get_current_time_ms, philo->index);
-	pthread_mutex_unlock(&philo->info->system_status_mutex);
+	current_time_ms = get_current_time_us() / 1000;
+	if (action == TAKE_A_FORK)
+		printf("%lld %d has taken a fork\n", current_time_ms, master_index);
+	else if (action == EATING)
+		printf("%lld %d is eating\n", current_time_ms, master_index);
+	else if (action == SLEEPING)
+		printf("%lld %d is sleeping\n", current_time_ms, master_index);
+	else if (action == THINKING)
+		printf("%lld %d is thinking\n", current_time_ms, master_index);
+	pthread_mutex_unlock(&info->system_status_mutex);
 	return (0);
 }
