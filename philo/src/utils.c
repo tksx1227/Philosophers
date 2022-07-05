@@ -16,20 +16,19 @@ static void	ft_putstr_fd(char const *s, int fd);
 
 int	msleep_precise(unsigned int ms)
 {
-	int			ret;
 	t_timestamp	end_time_us;
 	t_timestamp	left_time_us;
 
-	ret = 0;
 	end_time_us = get_current_time_us() + ms * 1000;
 	while (42)
 	{
 		left_time_us = end_time_us - get_current_time_us();
 		if (left_time_us <= 0)
 			break ;
-		ret = usleep(left_time_us / 2);
+		if(usleep(left_time_us / 2))
+			return (1);
 	}
-	return (ret);
+	return (0);
 }
 
 int	init_global_info(t_global_info *info, int params[])
