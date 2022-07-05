@@ -17,6 +17,7 @@ int	do_eating(t_philo *philo)
 	pthread_mutex_lock(&philo->info->system_status_mutex);
 	if (philo->info->is_system_stopped)
 	{
+		return_two_forks(philo);
 		pthread_mutex_unlock(&philo->info->system_status_mutex);
 		return (1);
 	}

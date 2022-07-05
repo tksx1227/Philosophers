@@ -20,8 +20,13 @@ int	take_two_forks(t_philo *philo)
 	int	index;
 
 	index = philo->index;
-	if (take_a_fork(index, philo) || take_a_fork(index, philo->next))
+	if (take_a_fork(index, philo))
 		return (1);
+	if (take_a_fork(index, philo->next))
+	{
+		return_the_fork(philo);
+		return (1);
+	}
 	return (0);
 }
 
@@ -34,40 +39,21 @@ int	return_two_forks(t_philo *philo)
 
 static int	take_a_fork(int index, t_philo *philo)
 {
-	while (42)
+	pthread_mutex_lock(&philo->fork_mutex);
+	pthread_mutex_lock(&philo->info->system_status_mutex);
+	if (philo->info->is_system_stopped)
 	{
-		pthread_mutex_lock(&philo->info->system_status_mutex);
-		if (philo->info->is_system_stopped)
-		{
-			pthread_mutex_unlock(&philo->info->system_status_mutex);
-			return (1);
-		}
-		pthread_mutex_lock(&philo->fork_mutex);
-		if (philo->exist_my_fork)
-		{
-			philo->exist_my_fork = false;
-			printf("%lld %d has taken a fork\n", get_current_time_us() / 1000, index);
-			pthread_mutex_unlock(&philo->fork_mutex);
-			pthread_mutex_unlock(&philo->info->system_status_mutex);
-			return (0);
-		}
 		pthread_mutex_unlock(&philo->fork_mutex);
 		pthread_mutex_unlock(&philo->info->system_status_mutex);
-		usleep(100);
+		return (1);
 	}
+	printf("%lld %d has taken a fork\n", get_current_time_us() / 1000, index);
+	pthread_mutex_unlock(&philo->info->system_status_mutex);
+	return (0);
 }
 
 static int	return_the_fork(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->info->system_status_mutex);
-	if (philo->info->is_system_stopped)
-	{
-		pthread_mutex_unlock(&philo->info->system_status_mutex);
-		return (1);
-	}
-	pthread_mutex_lock(&philo->fork_mutex);
-	philo->exist_my_fork = true;
 	pthread_mutex_unlock(&philo->fork_mutex);
-	pthread_mutex_unlock(&philo->info->system_status_mutex);
 	return (0);
 }

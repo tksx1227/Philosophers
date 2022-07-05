@@ -29,7 +29,6 @@ typedef struct s_global_info	t_global_info;
 struct s_philo
 {
 	int				index;
-	bool			exist_my_fork;
 	pthread_t		thread;
 	pthread_mutex_t	fork_mutex;
 	t_philo			*prev;

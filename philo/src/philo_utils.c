@@ -86,7 +86,6 @@ static t_philo	*get_new_philo(int index, t_global_info *info)
 		return (NULL);
 	memset(philo, 0, sizeof(t_philo));
 	philo->index = index;
-	philo->exist_my_fork = true;
 	philo->prev = NULL;
 	philo->next = NULL;
 	philo->eat_count = 0;
