@@ -52,7 +52,7 @@ struct s_global_info
 /* Utils */
 int			parse_args(int params[], int argc, char **argv);
 int			init_global_info(t_global_info *info, int params[]);
-int			msleep(unsigned int ms);
+int			msleep_precise(unsigned int ms);
 void		print_usage(void);
 t_timestamp	get_current_time_us(void);
 

@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 22:53:41 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/04 17:58:48 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/05 00:58:12 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,21 @@
 
 static void	ft_putstr_fd(char const *s, int fd);
 
-int	msleep(unsigned int ms)
+int	msleep_precise(unsigned int ms)
 {
-	int	ret;
+	int			ret;
+	t_timestamp	end_time_us;
+	t_timestamp	left_time_us;
 
-	ret = usleep(ms * 1000);
+	ret = 0;
+	end_time_us = get_current_time_us() + ms * 1000;
+	while (42)
+	{
+		left_time_us = end_time_us - get_current_time_us();
+		if (left_time_us <= 0)
+			break ;
+		ret = usleep(left_time_us / 2);
+	}
 	return (ret);
 }
 
