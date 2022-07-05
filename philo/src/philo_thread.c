@@ -19,7 +19,7 @@ int	create_philo_threads(t_philo *head)
 {
 	if (create_philo_threads_half(head, 0))
 		return (1);
-	usleep(50);
+	usleep(100);
 	if (create_philo_threads_half(head->next, 1))
 		return (1);
 	return (0);
