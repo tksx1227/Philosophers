@@ -12,8 +12,8 @@
 
 #include "philo.h"
 
-static int	take_a_fork(int index, t_philo *philo);
-static int	return_the_fork(t_philo *philo);
+static int	take_a_fork(int master_index, t_philo *philo);
+static int	release_a_fork(t_philo *philo);
 
 int	take_two_forks(t_philo *philo)
 {
@@ -24,21 +24,23 @@ int	take_two_forks(t_philo *philo)
 		return (1);
 	if (take_a_fork(index, philo->next))
 	{
-		return_the_fork(philo);
+		release_a_fork(philo);
 		return (1);
 	}
 	return (0);
 }
 
-int	return_two_forks(t_philo *philo)
+int	release_two_forks(t_philo *philo)
 {
-	if (return_the_fork(philo) || return_the_fork(philo->next))
+	if (release_a_fork(philo) || release_a_fork(philo->next))
 		return (1);
 	return (0);
 }
 
-static int	take_a_fork(int index, t_philo *philo)
+static int	take_a_fork(int master_index, t_philo *philo)
 {
+	t_timestamp	current_time_ms;
+
 	pthread_mutex_lock(&philo->fork_mutex);
 	pthread_mutex_lock(&philo->info->system_status_mutex);
 	if (philo->info->is_system_stopped)
@@ -47,12 +49,13 @@ static int	take_a_fork(int index, t_philo *philo)
 		pthread_mutex_unlock(&philo->info->system_status_mutex);
 		return (1);
 	}
-	printf("%lld %d has taken a fork\n", get_current_time_us() / 1000, index);
+	current_time_ms = get_current_time_us() / 1000;
+	printf("%lld %d has taken a fork\n", current_time_ms, master_index);
 	pthread_mutex_unlock(&philo->info->system_status_mutex);
 	return (0);
 }
 
-static int	return_the_fork(t_philo *philo)
+static int	release_a_fork(t_philo *philo)
 {
 	pthread_mutex_unlock(&philo->fork_mutex);
 	return (0);

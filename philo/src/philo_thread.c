@@ -91,7 +91,7 @@ static void	*main_routine(void *content)
 	{
 		if (take_two_forks(philo) \
 			|| do_eating(philo) \
-			|| return_two_forks(philo) \
+			|| release_two_forks(philo) \
 			|| do_sleeping(philo) \
 			|| do_thinking(philo))
 			return (NULL);
