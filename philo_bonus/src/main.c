@@ -14,5 +14,12 @@
 
 int	main(int argc, char **argv)
 {
+	int	params[5];
+
+	if (parse_args(params, argc, argv))
+	{
+		print_usage();
+		return (1);
+	}
 	return (0);
 }
