@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:28:52 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/06 10:20:55 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/06 11:50:37 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
 # include <sys/time.h>
 # include <unistd.h>
 # include <limits.h>
 # include <stdbool.h>
 
-typedef long long	t_timestamp;
+typedef long long		t_timestamp;
 
 /* Utils */
 int			parse_args(int params[], int argc, char **argv);

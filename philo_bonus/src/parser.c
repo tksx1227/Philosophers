@@ -6,11 +6,11 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 01:20:16 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/06 00:08:16 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/06 11:50:30 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 static bool	is_digit(char *str);
 static bool	is_digit_all(int argc, char **argv);
