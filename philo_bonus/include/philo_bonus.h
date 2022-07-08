@@ -23,7 +23,18 @@
 # include <semaphore.h>
 
 typedef long long				t_timestamp;
+typedef struct s_philo			t_philo;
 typedef struct s_global_info	t_global_info;
+
+struct s_philo
+{
+	int				index;
+	pid_t			pid;
+	size_t			eat_count;
+	t_philo			*next;
+	t_timestamp		last_ate_at_us;
+	t_global_info	*info;
+};
 
 struct s_global_info
 {
