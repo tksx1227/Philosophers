@@ -6,13 +6,38 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 22:53:41 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/06 11:50:19 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/08 23:52:04 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
 static void	ft_putstr_fd(char const *s, int fd);
+
+int	init_global_info(t_global_info *info, int params[])
+{
+	info->n_of_philos = params[0];
+	info->time_to_die = params[1];
+	info->time_to_eat = params[2];
+	info->time_to_sleep = params[3];
+	info->n_of_times_each_philo_must_eat = params[4];
+	info->is_system_stopped = false;
+	if (sem_unlink(FORKS_SEM_NAME) || sem_unlink(SYSTEM_STATUS_SEM_NAME))
+		return (1);
+	info->forks_sem = \
+		sem_open(FORKS_SEM_NAME, O_CREAT, O_RDWR, info->n_of_philos);
+	if (info->forks_sem == SEM_FAILED)
+		return (1);
+	info->system_status_sem = \
+		sem_open(SYSTEM_STATUS_SEM_NAME, O_CREAT, O_RDWR, 1);
+	if (info->system_status_sem == SEM_FAILED)
+	{
+		sem_close(info->forks_sem);
+		sem_unlink(FORKS_SEM_NAME);
+		return (1);
+	}
+	return (0);
+}
 
 int	msleep_precise(unsigned int ms)
 {
