@@ -108,7 +108,7 @@ static bool	is_dead(t_philo *philo)
 	last_ate_at_us = philo->last_ate_at_us;
 	pthread_mutex_unlock(&philo->info->system_status_mutex);
 	current_time_us = get_current_time_us();
-	time_to_die_us = philo->info->time_to_die * 1000;
+	time_to_die_us = (t_timestamp)philo->info->time_to_die * 1000;
 	if (time_to_die_us < current_time_us - last_ate_at_us)
 		return (true);
 	return (false);
