@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:28:52 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/08 16:30:15 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/09 18:51:32 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <limits.h>
 # include <stdbool.h>
 # include <semaphore.h>
 
+# define INITIAL_PID -42
 # define FORKS_SEM_NAME "/forks"
 # define SYSTEM_STATUS_SEM_NAME "/system_status"
 
@@ -57,5 +59,9 @@ int			init_global_info(t_global_info *info, int params[]);
 int			msleep_precise(unsigned int ms);
 void		print_usage(void);
 t_timestamp	get_current_time_us(void);
+
+/* Philo Utils */
+int			init_philos(t_global_info *info, t_philo **head_p);
+int			free_all_philos(t_philo **head_p);
 
 #endif
