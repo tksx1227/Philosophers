@@ -12,7 +12,35 @@
 
 #include "philo_bonus.h"
 
-int	destroy_all_sem(t_global_info *info)
+int	init_global_info_sem(t_global_info *info)
+{
+	if (init_sem(info->forks_sem, FORKS_SEM_NAME, info->n_of_philos) || \
+		init_sem(info->print_sem, PRINT_SEM_NAME, 1) || \
+		init_sem(info->completed_eating_sem, COMPLETED_EATING_SEM_NAME, 0))
+		return (1);
+	return (0);
+}
+
+int	destroy_philos_sem(t_philo *head)
+{
+	char	*sem_name;
+	t_philo	*philo;
+
+	philo = head;
+	while (philo != NULL)
+	{
+		sem_name = get_sem_name(philo->index);	
+		if (sem_name == NULL)
+			return (1);
+		if (destroy_sem(&philo->eating_status_sem, sem_name))
+			return (1);
+		free(sem_name);
+		philo = philo->next;
+	}
+	return (0);
+}
+
+int	destroy_global_info_sem(t_global_info *info)
 {
 	if (destroy_sem(&info->forks_sem, FORKS_SEM_NAME) || \
 		destroy_sem(&info->print_sem, PRINT_SEM_NAME) || \

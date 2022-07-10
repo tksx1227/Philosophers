@@ -90,7 +90,9 @@ char		*ft_itoa(int n);
 /* Philo Semaphore */
 int			init_sem(sem_t **sem, const char *name, int init_val);
 int			destroy_sem(sem_t **sem, const char *name);
-int			destroy_all_sem(t_global_info *info);
+int			init_global_info_sem(t_global_info *info);
+int			destroy_global_info_sem(t_global_info *info);
+int			destroy_philos_sem(t_philo *head);
 
 /* Philo Process */
 int			create_philo_processes(t_philo *philos);

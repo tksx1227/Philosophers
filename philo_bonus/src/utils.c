@@ -22,11 +22,9 @@ int	init_global_info(t_global_info *info, int params[])
 	info->time_to_sleep = params[3];
 	info->n_of_times_each_philo_must_eat = params[4];
 	info->eat_count_observer_pid = INITIAL_PID;
-	if (init_sem(&info->forks_sem, FORKS_SEM_NAME, info->n_of_philos) || \
-		init_sem(&info->print_sem, PRINT_SEM_NAME, 1) || \
-		init_sem(&info->completed_eating_sem, COMPLETED_EATING_SEM_NAME, 0))
+	if (init_global_info_sem(info))
 	{
-		destroy_all_sem(info);
+		destroy_global_info_sem(info);
 		return (1);
 	}
 	return (0);

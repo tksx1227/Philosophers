@@ -33,7 +33,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (kill_all_process(philos))
 		return (1);
-	if (destroy_all_sem(&info))
+	if (destroy_philos_sem(philos) || destroy_global_info_sem(&info))
 		return (1);
 	if (free_all_philos(&philos))
 		return (1);
