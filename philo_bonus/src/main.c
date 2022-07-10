@@ -14,12 +14,28 @@
 
 int	main(int argc, char **argv)
 {
-	int	params[5];
+	int				params[5];
+	t_philo			*philos;
+	t_global_info	info;
 
 	if (parse_args(params, argc, argv))
 	{
 		print_usage();
 		return (1);
 	}
+	if (init_global_info(&info, params))
+		return (1);
+	if (init_philos(&info, &philos))
+		return (1);
+	if (create_philo_processes(philos))
+		return (1);
+	if (wait_process())
+		return (1);
+	if (kill_all_process(philos))
+		return (1);
+	if (destroy_all_sem(&info))
+		return (1);
+	if (free_all_philos(&philos))
+		return (1);
 	return (0);
 }
