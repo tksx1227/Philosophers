@@ -83,6 +83,9 @@ int			init_global_info(t_global_info *info, int params[]);
 int			msleep_precise(unsigned int ms);
 void		print_usage(void);
 t_timestamp	get_current_time_us(void);
+size_t		ft_strlen(char *str);
+char		*ft_strcpy(char *dst, char *src);
+char		*ft_itoa(int n);
 
 /* Philo Semaphore */
 int			init_sem(sem_t **sem, const char *name, int init_val);
