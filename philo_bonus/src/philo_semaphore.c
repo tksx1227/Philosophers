@@ -14,9 +14,9 @@
 
 int	init_global_info_sem(t_global_info *info)
 {
-	if (init_sem(info->forks_sem, FORKS_SEM_NAME, info->n_of_philos) || \
-		init_sem(info->print_sem, PRINT_SEM_NAME, 1) || \
-		init_sem(info->completed_eating_sem, COMPLETED_EATING_SEM_NAME, 0))
+	if (init_sem(&info->forks_sem, FORKS_SEM_NAME, info->n_of_philos) || \
+		init_sem(&info->print_sem, PRINT_SEM_NAME, 1) || \
+		init_sem(&info->completed_eating_sem, COMPLETED_EATING_SEM_NAME, 0))
 		return (1);
 	return (0);
 }
