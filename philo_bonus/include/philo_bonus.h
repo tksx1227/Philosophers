@@ -25,7 +25,8 @@
 
 # define INITIAL_PID -42
 # define FORKS_SEM_NAME "/forks"
-# define SYSTEM_STATUS_SEM_NAME "/system_status"
+# define COMPLETED_EATING_SEM_NAME "/completed_eating"
+# define PRINT_SEM_NAME "/print"
 
 typedef long long				t_timestamp;
 typedef struct s_philo			t_philo;
@@ -48,9 +49,10 @@ struct s_global_info
 	int		time_to_eat;
 	int		time_to_sleep;
 	int		n_of_times_each_philo_must_eat;
-	bool	is_system_stopped;
+	pid_t	eat_count_observer_pid;
+	sem_t	*completed_eating_sem;
 	sem_t	*forks_sem;
-	sem_t	*system_status_sem;
+	sem_t	*print_sem;
 };
 
 /* Utils */
@@ -59,6 +61,11 @@ int			init_global_info(t_global_info *info, int params[]);
 int			msleep_precise(unsigned int ms);
 void		print_usage(void);
 t_timestamp	get_current_time_us(void);
+
+/* Philo Semaphore */
+int			init_sem(sem_t **sem, const char *name, int init_val);
+int			destroy_sem(sem_t **sem, const char *name);
+int			destroy_all_sem(t_global_info *info);
 
 /* Philo Utils */
 int			init_philos(t_global_info *info, t_philo **head_p);
