@@ -89,12 +89,9 @@ int			init_sem(sem_t **sem, const char *name, int init_val);
 int			destroy_sem(sem_t **sem, const char *name);
 int			destroy_all_sem(t_global_info *info);
 
-/* Philo Thread */
-void		*main_routine(void *content);
-
 /* Philo Process */
 int			create_philo_processes(t_philo *philos);
-int			create_observer_process(t_global_info *info);
+int			create_process_for_monitoring_number_of_meals(t_global_info *info);
 int			wait_process(void);
 int			kill_all_process(t_philo *philos);
 

@@ -17,11 +17,11 @@ static bool	is_completed_eating(t_philo *philo);
 
 void	*do_monitoring(void *content)
 {
-	bool	require_eat_check;
+	bool	require_eating_check;
 	t_philo	*philo;
 
 	philo = (t_philo *)content;
-	require_eat_check = 0 <= philo->info->n_of_times_each_philo_must_eat;
+	require_eating_check = 0 <= philo->info->n_of_times_each_philo_must_eat;
 	while (42)
 	{
 		if (is_dead(philo))
@@ -29,7 +29,7 @@ void	*do_monitoring(void *content)
 			print_action(philo->info, DEAD, philo->index);
 			exit(EXIT_SOMEONE_DIED);
 		}
-		if (require_eat_check && is_completed_eating(philo))
+		if (require_eating_check && is_completed_eating(philo))
 		{
 			sem_post(philo->info->completed_eating_sem);
 			exit(EXIT_COMPLETED_EATING);
