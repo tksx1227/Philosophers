@@ -32,7 +32,7 @@ void	*do_monitoring(void *content)
 		if (require_eating_check && is_completed_eating(philo))
 		{
 			sem_post(philo->info->completed_eating_sem);
-			exit(EXIT_COMPLETED_EATING);
+			require_eating_check = false;
 		}
 		usleep(OBSERVE_INTERVAL);
 	}
@@ -48,6 +48,7 @@ void	wait_until_everyone_completed_eating(t_global_info *info)
 		sem_wait(info->completed_eating_sem);
 		i++;
 	}
+	sem_wait(info->print_sem);
 	exit(EXIT_COMPLETED_EATING);
 }
 

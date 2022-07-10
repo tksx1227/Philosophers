@@ -18,7 +18,7 @@ static int	create_half_of_philo_processes(t_philo *head, int start_index);
 
 int	create_philo_processes(t_philo *head)
 {
-	if (0 <= head->info->eat_count_observer_pid && \
+	if (0 <= head->info->n_of_times_each_philo_must_eat && \
 		create_process_for_monitoring_number_of_meals(head->info))
 		return (1);
 	if (create_half_of_philo_processes(head, 0))
