@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 22:53:41 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/08 23:52:04 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/09 18:50:29 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,12 @@ int	init_global_info(t_global_info *info, int params[])
 	info->time_to_eat = params[2];
 	info->time_to_sleep = params[3];
 	info->n_of_times_each_philo_must_eat = params[4];
-	info->is_system_stopped = false;
-	if (sem_unlink(FORKS_SEM_NAME) || sem_unlink(SYSTEM_STATUS_SEM_NAME))
-		return (1);
-	info->forks_sem = \
-		sem_open(FORKS_SEM_NAME, O_CREAT, O_RDWR, info->n_of_philos);
-	if (info->forks_sem == SEM_FAILED)
-		return (1);
-	info->system_status_sem = \
-		sem_open(SYSTEM_STATUS_SEM_NAME, O_CREAT, O_RDWR, 1);
-	if (info->system_status_sem == SEM_FAILED)
+	info->eat_count_observer_pid = INITIAL_PID;
+	if (init_sem(&info->forks_sem, FORKS_SEM_NAME, info->n_of_philos) || \
+		init_sem(&info->print_sem, PRINT_SEM_NAME, 1) || \
+		init_sem(&info->completed_eating_sem, COMPLETED_EATING_SEM_NAME, 0))
 	{
-		sem_close(info->forks_sem);
-		sem_unlink(FORKS_SEM_NAME);
+		destroy_all_sem(info);
 		return (1);
 	}
 	return (0);
