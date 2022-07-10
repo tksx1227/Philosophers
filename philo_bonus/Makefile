@@ -12,7 +12,8 @@ FILES	:= main.c \
 			philo_process2.c \
 			philo_semaphore.c \
 			philo_utils.c \
-			utils.c
+			utils.c \
+			utils2.c
 SRCS	:= $(addprefix $(SRCDIR)/, $(FILES))
 OBJS	:= $(addprefix $(OBJDIR)/, $(FILES:.c=.o))
 DEPS	:= $(addprefix $(OBJDIR)/, $(FILES:.c=.d))
