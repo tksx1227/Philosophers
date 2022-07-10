@@ -59,7 +59,7 @@ t_timestamp	get_current_time_us(void)
 
 void	print_usage(void)
 {
-	ft_putstr_fd("Usage: philo <NUMBER_OF_PHILOSOPHERS> <TIME_TO_DIE> "
+	ft_putstr_fd("Usage: philo_bonus <NUMBER_OF_PHILOSOPHERS> <TIME_TO_DIE> "
 		"<TIME_TO_EAT>\n\t<TIME_TO_SLEEP> "
 		"[NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT]\n\n",
 		STDERR_FILENO);
