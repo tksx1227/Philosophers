@@ -35,7 +35,6 @@ int	wait_process(void)
 	if (exit_status_code != EXIT_COMPLETED_EATING && \
 		exit_status_code != EXIT_SOMEONE_DIED)
 		return (1);
-	printf("THE SIMULATION IS COMPLETED...\n");
 	return (0);
 }
 

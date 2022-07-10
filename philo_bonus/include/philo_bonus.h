@@ -44,7 +44,6 @@ enum e_exit_status
 {
 	EXIT_COMPLETED_EATING = 10,
 	EXIT_SOMEONE_DIED,
-	EXIT_FATAL_ERROR,
 };
 
 enum e_action
