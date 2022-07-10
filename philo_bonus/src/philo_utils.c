@@ -58,8 +58,34 @@ int	free_all_philos(t_philo **head_p)
 	return (0);
 }
 
+char	*get_sem_name(int index)
+{
+	size_t	len;
+	int		buf_size;
+	char	*name;
+	char	*index_str;
+
+	buf_size = 128;
+	name = (char *)malloc(sizeof(char) * buf_size);
+	if (name == NULL)
+		return (NULL);
+	memset(name, 0, buf_size);
+	index_str = ft_itoa(index);
+	if (index_str == NULL)
+	{
+		free(name);
+		return (NULL);
+	}
+	len = ft_strlen(PHILO_SEM_NAME_TEMPLATE);
+	ft_strcpy(name, PHILO_SEM_NAME_TEMPLATE);
+	ft_strcpy(name + len, index_str);
+	free(index_str);
+	return (name);
+}
+
 static t_philo	*get_new_philo(int index, t_global_info *info)
 {
+	char	*sem_name;
 	t_philo	*philo;
 
 	philo = (t_philo *)malloc(sizeof(t_philo));
@@ -71,5 +97,13 @@ static t_philo	*get_new_philo(int index, t_global_info *info)
 	philo->last_ate_at_us = 0;
 	philo->pid = INITIAL_PID;
 	philo->info = info;
+	sem_name = get_sem_name(philo->index);
+	if (sem_name == NULL || init_sem(&philo->eating_status_sem, sem_name, 1))
+	{
+		free(sem_name);
+		free(philo);
+		return (NULL);
+	}
+	free(sem_name);
 	return (philo);
 }

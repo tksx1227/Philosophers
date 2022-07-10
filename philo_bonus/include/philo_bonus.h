@@ -25,6 +25,7 @@
 # include <semaphore.h>
 # include <pthread.h>
 # include <signal.h>
+# include <string.h>
 
 # define INITIAL_PID -42
 # define OBSERVE_INTERVAL 3000
@@ -32,6 +33,7 @@
 # define FORKS_SEM_NAME "/forks"
 # define COMPLETED_EATING_SEM_NAME "/completed_eating"
 # define PRINT_SEM_NAME "/print"
+# define PHILO_SEM_NAME_TEMPLATE "/philosophers_"
 
 typedef long long				t_timestamp;
 typedef enum e_action			t_action;
@@ -62,6 +64,7 @@ struct s_philo
 	t_philo			*next;
 	t_timestamp		last_ate_at_us;
 	t_global_info	*info;
+	sem_t			*eating_status_sem;
 };
 
 struct s_global_info
@@ -112,6 +115,7 @@ int			print_action(t_global_info *info, \
 /* Philo Utils */
 int			init_philos(t_global_info *info, t_philo **head_p);
 int			free_all_philos(t_philo **head_p);
+char		*get_sem_name(int index);
 
 /* Philo Observer */
 void		*do_monitoring(void *content);

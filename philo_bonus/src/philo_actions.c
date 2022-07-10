@@ -17,8 +17,10 @@ int	do_eating(t_philo *philo)
 	if (print_action(philo->info, EATING, philo->index))
 		return (1);
 	msleep_precise(philo->info->time_to_eat);
+	sem_wait(philo->eating_status_sem);
 	philo->eat_count++;
 	philo->last_ate_at_us = get_current_time_us();
+	sem_post(philo->eating_status_sem);
 	return (0);
 }
 

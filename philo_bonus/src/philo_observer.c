@@ -56,7 +56,9 @@ static bool	is_completed_eating(t_philo *philo)
 	int		max_limit;
 	size_t	eat_count;
 
+	sem_wait(philo->eating_status_sem);
 	eat_count = philo->eat_count;
+	sem_post(philo->eating_status_sem);
 	max_limit = philo->info->n_of_times_each_philo_must_eat;
 	if ((size_t)max_limit <= eat_count)
 		return (true);
@@ -69,7 +71,9 @@ static bool	is_dead(t_philo *philo)
 	t_timestamp	current_time_us;
 	t_timestamp	time_to_die_us;
 
+	sem_wait(philo->eating_status_sem);
 	last_ate_at_us = philo->last_ate_at_us;
+	sem_post(philo->eating_status_sem);
 	current_time_us = get_current_time_us();
 	time_to_die_us = (t_timestamp)philo->info->time_to_die * 1000;
 	if (time_to_die_us < current_time_us - last_ate_at_us)
