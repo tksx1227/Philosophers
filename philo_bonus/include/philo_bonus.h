@@ -25,6 +25,7 @@
 # include <semaphore.h>
 
 # define INITIAL_PID -42
+# define OBSERVE_INTERVAL 3000
 # define FORKS_SEM_NAME "/forks"
 # define COMPLETED_EATING_SEM_NAME "/completed_eating"
 # define PRINT_SEM_NAME "/print"
@@ -33,6 +34,13 @@ typedef long long				t_timestamp;
 typedef enum e_action			t_action;
 typedef struct s_philo			t_philo;
 typedef struct s_global_info	t_global_info;
+
+enum e_exit_status
+{
+	EXIT_COMPLETED_EATING = 10,
+	EXIT_SOMEONE_DIED,
+	EXIT_FATAL_ERROR,
+};
 
 enum e_action
 {
@@ -93,5 +101,9 @@ int			print_action(t_global_info *info, \
 /* Philo Utils */
 int			init_philos(t_global_info *info, t_philo **head_p);
 int			free_all_philos(t_philo **head_p);
+
+/* Philo Observer */
+void		*do_monitoring(void *content);
+void		wait_until_everyone_completed_eating(t_global_info *info);
 
 #endif
