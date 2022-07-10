@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 00:24:50 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/09 16:23:30 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/10 17:21:29 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	start_philo_process(t_philo *philo)
 		pthread_create(&observer_thread, NULL, &do_monitoring, philo))
 		exit(1);
 	if (pthread_join(philo_thread, NULL) || \
-		pthread_join(observer_thread, NULL))	
+		pthread_join(observer_thread, NULL))
 		exit(1);
 	exit(0);
 }
