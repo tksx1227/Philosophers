@@ -12,9 +12,9 @@
 
 #include "philo.h"
 
-static bool	is_everyone_finished_eating(t_philo *head);
+static bool	is_everyone_completed_eating(t_philo *head);
 static bool	is_anyone_dead(t_philo *head);
-static bool	is_finished_eating(t_philo *philo);
+static bool	is_completed_eating(t_philo *philo);
 static bool	is_dead(t_philo *philo);
 
 void	*do_monitoring(void *content)
@@ -33,13 +33,13 @@ void	*do_monitoring(void *content)
 	}
 	while (42)
 	{
-		if (is_everyone_finished_eating(head) || is_anyone_dead(head))
+		if (is_everyone_completed_eating(head) || is_anyone_dead(head))
 			return (NULL);
 		usleep(OBSERVE_INTERVAL);
 	}
 }
 
-static bool	is_everyone_finished_eating(t_philo *head)
+static bool	is_everyone_completed_eating(t_philo *head)
 {
 	int		i;
 	t_philo	*philo;
@@ -48,7 +48,7 @@ static bool	is_everyone_finished_eating(t_philo *head)
 	philo = head;
 	while (i < head->info->n_of_philos)
 	{
-		if (!is_finished_eating(philo))
+		if (!is_completed_eating(philo))
 			return (false);
 		philo = philo->next;
 		i++;
@@ -84,7 +84,7 @@ static bool	is_anyone_dead(t_philo *head)
 	return (false);
 }
 
-static bool	is_finished_eating(t_philo *philo)
+static bool	is_completed_eating(t_philo *philo)
 {
 	int		max_limit;
 	size_t	eat_count;
