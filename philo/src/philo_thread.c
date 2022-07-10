@@ -12,15 +12,15 @@
 
 #include "philo.h"
 
-static int	create_philo_threads_half(t_philo *head, int start_index);
+static int	create_half_of_philo_threads(t_philo *head, int start_index);
 static void	*main_routine(void *content);
 
 int	create_philo_threads(t_philo *head)
 {
-	if (create_philo_threads_half(head, 0))
+	if (create_half_of_philo_threads(head, 0))
 		return (1);
 	usleep(CREATE_PHILO_INTERVAL);
-	if (create_philo_threads_half(head->next, 1))
+	if (create_half_of_philo_threads(head->next, 1))
 		return (1);
 	return (0);
 }
@@ -63,12 +63,14 @@ int	destroy_all_mutex(t_philo *head)
 	return (0);
 }
 
-static int	create_philo_threads_half(t_philo *head, int start_index)
+static int	create_half_of_philo_threads(t_philo *head, int start_index)
 {
 	long	i;
 	long	n_of_philos;
 	t_philo	*philo;
 
+	if (head == NULL)
+		return (0);
 	philo = head;
 	i = start_index;
 	n_of_philos = head->info->n_of_philos;

@@ -40,6 +40,8 @@ static int	create_half_of_philo_processes(t_philo *head, int start_index)
 	int		i;
 	t_philo	*philo;
 
+	if (head == NULL)
+		return (0);
 	i = start_index;
 	philo = head;
 	while (i < head->info->n_of_philos)
