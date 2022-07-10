@@ -3,7 +3,16 @@ SRCDIR	:= src
 OBJDIR	:= obj
 INCDIR	:= include
 
-FILES	:= main.c
+FILES	:= main.c \
+			parser.c \
+			philo_actions.c \
+			philo_actions2.c \
+			philo_observer.c \
+			philo_process.c \
+			philo_process2.c \
+			philo_semaphore.c \
+			philo_utils.c \
+			utils.c
 SRCS	:= $(addprefix $(SRCDIR)/, $(FILES))
 OBJS	:= $(addprefix $(OBJDIR)/, $(FILES:.c=.o))
 DEPS	:= $(addprefix $(OBJDIR)/, $(FILES:.c=.d))
