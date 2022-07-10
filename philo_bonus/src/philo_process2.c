@@ -47,10 +47,16 @@ int	kill_all_process(t_philo *head)
 	while (philo != NULL)
 	{
 		if (philo->pid != INITIAL_PID)
+		{
 			kill(philo->pid, SIGKILL);
+			philo->pid = INITIAL_PID;
+		}
 		philo = philo->next;
 	}
 	if (head->info->eat_count_observer_pid != INITIAL_PID)
+	{
 		kill(head->info->eat_count_observer_pid, SIGKILL);
+		head->info->eat_count_observer_pid = INITIAL_PID;
+	}
 	return (0);
 }
