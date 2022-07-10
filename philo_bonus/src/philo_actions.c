@@ -52,7 +52,10 @@ int	print_action(t_global_info *info, t_action action, int master_index)
 	else if (action == THINKING)
 		printf("%lld %d is thinking\n", current_time_ms, master_index);
 	else if (action == DEAD)
+	{
 		printf("%lld %d died\n", current_time_ms, master_index);
+		return (0);
+	}
 	sem_post(info->print_sem);
 	return (0);
 }
