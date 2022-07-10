@@ -18,6 +18,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
 # include <stdbool.h>
@@ -29,8 +30,18 @@
 # define PRINT_SEM_NAME "/print"
 
 typedef long long				t_timestamp;
+typedef enum e_action			t_action;
 typedef struct s_philo			t_philo;
 typedef struct s_global_info	t_global_info;
+
+enum e_action
+{
+	TAKE_A_FORK,
+	EATING,
+	SLEEPING,
+	THINKING,
+	DEAD,
+};
 
 struct s_philo
 {
@@ -66,6 +77,15 @@ t_timestamp	get_current_time_us(void);
 int			init_sem(sem_t **sem, const char *name, int init_val);
 int			destroy_sem(sem_t **sem, const char *name);
 int			destroy_all_sem(t_global_info *info);
+
+/* Philo Actions */
+int			take_two_forks(t_philo *philo);
+int			release_two_forks(t_philo *philo);
+int			do_eating(t_philo *philo);
+int			do_sleeping(t_philo *philo);
+int			do_thinking(t_philo *philo);
+int			print_action(t_global_info *info, \
+		t_action action, int master_index);
 
 /* Philo Utils */
 int			init_philos(t_global_info *info, t_philo **head_p);
