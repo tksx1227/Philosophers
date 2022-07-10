@@ -78,6 +78,9 @@ int			init_sem(sem_t **sem, const char *name, int init_val);
 int			destroy_sem(sem_t **sem, const char *name);
 int			destroy_all_sem(t_global_info *info);
 
+/* Philo Thread */
+void		*main_routine(void *content);
+
 /* Philo Actions */
 int			take_two_forks(t_philo *philo);
 int			release_two_forks(t_philo *philo);
