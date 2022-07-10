@@ -23,9 +23,12 @@
 # include <limits.h>
 # include <stdbool.h>
 # include <semaphore.h>
+# include <pthread.h>
+# include <signal.h>
 
 # define INITIAL_PID -42
 # define OBSERVE_INTERVAL 3000
+# define CREATE_PHILO_INTERVAL 2000
 # define FORKS_SEM_NAME "/forks"
 # define COMPLETED_EATING_SEM_NAME "/completed_eating"
 # define PRINT_SEM_NAME "/print"
@@ -88,6 +91,12 @@ int			destroy_all_sem(t_global_info *info);
 
 /* Philo Thread */
 void		*main_routine(void *content);
+
+/* Philo Process */
+int			create_philo_processes(t_philo *philos);
+int			create_observer_process(t_global_info *info);
+int			wait_process(void);
+int			kill_all_process(t_philo *philos);
 
 /* Philo Actions */
 int			take_two_forks(t_philo *philo);
