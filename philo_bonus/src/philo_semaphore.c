@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 22:55:28 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/10 17:21:39 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/10 18:31:13 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	destroy_philos_sem(t_philo *head)
 	philo = head;
 	while (philo != NULL)
 	{
-		sem_name = get_sem_name(philo->index);	
+		sem_name = get_sem_name(philo->index);
 		if (sem_name == NULL)
 			return (1);
 		if (destroy_sem(&philo->eating_status_sem, sem_name))
