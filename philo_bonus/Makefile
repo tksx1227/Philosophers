@@ -10,6 +10,7 @@ FILES	:= main.c \
 			philo_observer.c \
 			philo_process.c \
 			philo_process2.c \
+			philo_process3.c \
 			philo_semaphore.c \
 			philo_utils.c \
 			utils.c \

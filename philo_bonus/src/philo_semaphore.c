@@ -16,8 +16,12 @@ int	init_global_info_sem(t_global_info *info)
 {
 	if (init_sem(&info->forks_sem, FORKS_SEM_NAME, info->n_of_philos) || \
 		init_sem(&info->print_sem, PRINT_SEM_NAME, 1) || \
-		init_sem(&info->completed_eating_sem, COMPLETED_EATING_SEM_NAME, 0))
+		init_sem(&info->completed_eating_sem, COMPLETED_EATING_SEM_NAME, 0) || \
+		init_sem(&info->someones_death_sem, SOMEONES_DEATH_SEM_NAME, 0))
+	{
+		destroy_global_info_sem(info);
 		return (1);
+	}
 	return (0);
 }
 
@@ -44,7 +48,8 @@ int	destroy_global_info_sem(t_global_info *info)
 {
 	if (destroy_sem(&info->forks_sem, FORKS_SEM_NAME) || \
 		destroy_sem(&info->print_sem, PRINT_SEM_NAME) || \
-		destroy_sem(&info->completed_eating_sem, COMPLETED_EATING_SEM_NAME))
+		destroy_sem(&info->completed_eating_sem, COMPLETED_EATING_SEM_NAME) || \
+		destroy_sem(&info->someones_death_sem, SOMEONES_DEATH_SEM_NAME))
 		return (1);
 	return (0);
 }

@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (create_philo_processes(philos))
 		return (1);
-	if (wait_process())
+	if (wait_any_one_process())
 		return (1);
 	if (kill_all_process(philos))
 		return (1);

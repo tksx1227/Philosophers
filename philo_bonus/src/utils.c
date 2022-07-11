@@ -22,6 +22,7 @@ int	init_global_info(t_global_info *info, int params[])
 	info->time_to_sleep = params[3];
 	info->n_of_times_each_philo_must_eat = params[4];
 	info->eat_count_observer_pid = INITIAL_PID;
+	info->death_observer_pid = INITIAL_PID;
 	if (init_global_info_sem(info))
 	{
 		destroy_global_info_sem(info);

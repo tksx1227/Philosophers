@@ -27,7 +27,8 @@ void	*do_monitoring(void *content)
 		if (is_dead(philo))
 		{
 			print_action(philo->info, DEAD, philo->index);
-			exit(EXIT_SOMEONE_DIED);
+			sem_post(philo->info->someones_death_sem);
+			return (NULL);
 		}
 		if (require_eating_check && is_completed_eating(philo))
 		{
@@ -36,20 +37,6 @@ void	*do_monitoring(void *content)
 		}
 		usleep(OBSERVE_INTERVAL);
 	}
-}
-
-void	wait_until_everyone_completed_eating(t_global_info *info)
-{
-	int	i;
-
-	i = 0;
-	while (i < info->n_of_philos)
-	{
-		sem_wait(info->completed_eating_sem);
-		i++;
-	}
-	sem_wait(info->print_sem);
-	exit(EXIT_COMPLETED_EATING);
 }
 
 static bool	is_completed_eating(t_philo *philo)

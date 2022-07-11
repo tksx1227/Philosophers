@@ -12,6 +12,19 @@
 
 #include "philo_bonus.h"
 
+static void	wait_until_someone_died(t_global_info *info);
+static void	wait_until_everyone_completed_eating(t_global_info *info);
+
+int	create_process_for_monitoring_someones_death(t_global_info *info)
+{
+	info->death_observer_pid = fork();
+	if (info->death_observer_pid < 0)
+		return (1);
+	else if (info->death_observer_pid == 0)
+		wait_until_someone_died(info);
+	return (0);
+}
+
 int	create_process_for_monitoring_number_of_meals(t_global_info *info)
 {
 	info->eat_count_observer_pid = fork();
@@ -22,40 +35,22 @@ int	create_process_for_monitoring_number_of_meals(t_global_info *info)
 	return (0);
 }
 
-int	wait_process(void)
+static void	wait_until_someone_died(t_global_info *info)
 {
-	int	wstatus;
-	int	exit_status_code;
-
-	if (waitpid(-1, &wstatus, 0) == -1)
-		return (1);
-	if (!WIFEXITED(wstatus))
-		return (1);
-	exit_status_code = WEXITSTATUS(wstatus);
-	if (exit_status_code != EXIT_COMPLETED_EATING && \
-		exit_status_code != EXIT_SOMEONE_DIED)
-		return (1);
-	return (0);
+	sem_wait(info->someones_death_sem);
+	exit(EXIT_SOMEONE_DIED);
 }
 
-int	kill_all_process(t_philo *head)
+static void	wait_until_everyone_completed_eating(t_global_info *info)
 {
-	t_philo	*philo;
+	int	i;
 
-	philo = head;
-	while (philo != NULL)
+	i = 0;
+	while (i < info->n_of_philos)
 	{
-		if (philo->pid != INITIAL_PID)
-		{
-			kill(philo->pid, SIGKILL);
-			philo->pid = INITIAL_PID;
-		}
-		philo = philo->next;
+		sem_wait(info->completed_eating_sem);
+		i++;
 	}
-	if (head->info->eat_count_observer_pid != INITIAL_PID)
-	{
-		kill(head->info->eat_count_observer_pid, SIGKILL);
-		head->info->eat_count_observer_pid = INITIAL_PID;
-	}
-	return (0);
+	sem_wait(info->print_sem);
+	exit(EXIT_COMPLETED_EATING);
 }

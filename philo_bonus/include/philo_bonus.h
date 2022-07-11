@@ -30,8 +30,9 @@
 # define INITIAL_PID -42
 # define OBSERVE_INTERVAL 3000
 # define CREATE_PHILO_INTERVAL 2000
-# define FORKS_SEM_NAME "/forks"
+# define SOMEONES_DEATH_SEM_NAME "/someones_death"
 # define COMPLETED_EATING_SEM_NAME "/completed_eating"
+# define FORKS_SEM_NAME "/forks"
 # define PRINT_SEM_NAME "/print"
 # define PHILO_SEM_NAME_TEMPLATE "/philosophers_"
 
@@ -74,7 +75,9 @@ struct s_global_info
 	int		time_to_sleep;
 	int		n_of_times_each_philo_must_eat;
 	pid_t	eat_count_observer_pid;
+	pid_t	death_observer_pid;
 	sem_t	*completed_eating_sem;
+	sem_t	*someones_death_sem;
 	sem_t	*forks_sem;
 	sem_t	*print_sem;
 };
@@ -97,10 +100,11 @@ int			destroy_global_info_sem(t_global_info *info);
 int			destroy_philos_sem(t_philo *head);
 
 /* Philo Process */
-int			create_philo_processes(t_philo *philos);
-int			create_process_for_monitoring_number_of_meals(t_global_info *info);
-int			wait_process(void);
+int			wait_any_one_process(void);
 int			kill_all_process(t_philo *philos);
+int			create_philo_processes(t_philo *philos);
+int			create_process_for_monitoring_someones_death(t_global_info *info);
+int			create_process_for_monitoring_number_of_meals(t_global_info *info);
 
 /* Philo Actions */
 int			take_two_forks(t_philo *philo);
@@ -118,6 +122,5 @@ char		*get_sem_name(int index);
 
 /* Philo Observer */
 void		*do_monitoring(void *content);
-void		wait_until_everyone_completed_eating(t_global_info *info);
 
 #endif

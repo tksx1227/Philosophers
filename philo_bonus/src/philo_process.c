@@ -21,6 +21,8 @@ int	create_philo_processes(t_philo *head)
 	if (0 <= head->info->n_of_times_each_philo_must_eat && \
 		create_process_for_monitoring_number_of_meals(head->info))
 		return (1);
+	if (create_process_for_monitoring_someones_death(head->info))
+		return (1);
 	if (create_half_of_philo_processes(head, 0))
 	{
 		kill_all_process(head);
@@ -68,8 +70,7 @@ static void	start_philo_process(t_philo *philo)
 	if (pthread_create(&philo_thread, NULL, &main_routine, philo) || \
 		pthread_create(&observer_thread, NULL, &do_monitoring, philo))
 		exit(1);
-	if (pthread_join(philo_thread, NULL) || \
-		pthread_join(observer_thread, NULL))
+	if (pthread_detach(observer_thread) || pthread_join(philo_thread, NULL))
 		exit(1);
 	exit(0);
 }
