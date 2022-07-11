@@ -14,6 +14,7 @@
 
 static int	take_a_fork(int master_index, t_philo *philo);
 static int	release_a_fork(t_philo *philo);
+static void	wait_until_system_stop(t_global_info *info);
 
 int	take_two_forks(t_philo *philo)
 {
@@ -22,6 +23,12 @@ int	take_two_forks(t_philo *philo)
 	index = philo->index;
 	if (take_a_fork(index, philo))
 		return (1);
+	if (philo->info->n_of_philos == 1)
+	{
+		wait_until_system_stop(philo->info);
+		release_a_fork(philo);
+		return (1);
+	}
 	if (take_a_fork(index, philo->next))
 	{
 		release_a_fork(philo);
@@ -52,4 +59,19 @@ static int	release_a_fork(t_philo *philo)
 {
 	pthread_mutex_unlock(&philo->fork_mutex);
 	return (0);
+}
+
+static void	wait_until_system_stop(t_global_info *info)
+{
+	bool	is_system_stopped;
+
+	while (42)
+	{
+		pthread_mutex_lock(&info->system_status_mutex);
+		is_system_stopped = info->is_system_stopped;
+		pthread_mutex_unlock(&info->system_status_mutex);
+		if (is_system_stopped)
+			return ;
+		usleep(100);
+	}
 }
