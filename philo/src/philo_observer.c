@@ -19,21 +19,16 @@ static bool	is_dead(t_philo *philo);
 
 void	*do_monitoring(void *content)
 {
+	bool	require_eating_check;
 	t_philo	*head;
 
 	head = (t_philo *)content;
-	if (head->info->n_of_times_each_philo_must_eat < 0)
-	{
-		while (42)
-		{
-			if (is_anyone_dead(head))
-				return (NULL);
-			usleep(OBSERVE_INTERVAL);
-		}
-	}
+	require_eating_check = 0 <= head->info->n_of_times_each_philo_must_eat;
 	while (42)
 	{
-		if (is_everyone_completed_eating(head) || is_anyone_dead(head))
+		if (is_anyone_dead(head))
+			return (NULL);
+		if (require_eating_check && is_everyone_completed_eating(head))
 			return (NULL);
 		usleep(OBSERVE_INTERVAL);
 	}
