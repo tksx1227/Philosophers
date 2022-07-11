@@ -69,27 +69,27 @@ dev:
 	@$(MAKE) DEV=1
 
 .PHONY: test1
-test1:
+test1: all
 	@echo "\033[33mTest with 1 800 200 200\033[0m"
 	@./bin/philo_bonus 1 800 200 200
 
 .PHONY: test2
-test2:
+test2: all
 	@echo "\033[33mTest with 5 800 200 200\033[0m"
 	@./bin/philo_bonus 5 800 200 200
 
 .PHONY: test3
-test3:
+test3: all
 	@echo "\033[33mTest with 5 800 200 200 7\033[0m"
 	@./bin/philo_bonus 5 800 200 200 7
 
 .PHONY: test4
-test4:
+test4: all
 	@echo "\033[33mTest with 4 410 200 200\033[0m"
 	@./bin/philo_bonus 4 410 200 200
 
 .PHONY: test5
-test5:
+test5: all
 	@echo "\033[33mTest with 4 310 200 100\033[0m"
 	@./bin/philo_bonus 4 310 200 100
 
