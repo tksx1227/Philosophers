@@ -53,7 +53,8 @@ int	print_action(t_global_info *info, t_action action, int master_index)
 		printf("%lld %d is thinking\n", current_time_ms, master_index);
 	else if (action == DEAD)
 	{
-		printf("%lld %d died\n", current_time_ms, master_index);
+		printf("%s%lld %d died%s\n", \
+			COLOR_RED, current_time_ms, master_index, COLOR_RESET);
 		return (0);
 	}
 	sem_post(info->print_sem);

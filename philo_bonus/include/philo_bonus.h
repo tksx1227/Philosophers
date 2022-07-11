@@ -27,9 +27,13 @@
 # include <signal.h>
 # include <string.h>
 
+# define COLOR_RED "\033[31m"
+# define COLOR_RESET "\033[0m"
+
 # define INITIAL_PID -42
 # define OBSERVE_INTERVAL 3000
 # define CREATE_PHILO_INTERVAL 2000
+
 # define SOMEONES_DEATH_SEM_NAME "/someones_death"
 # define COMPLETED_EATING_SEM_NAME "/completed_eating"
 # define FORKS_SEM_NAME "/forks"
