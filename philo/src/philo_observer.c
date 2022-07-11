@@ -58,7 +58,6 @@ static bool	is_anyone_dead(t_philo *head)
 {
 	int			i;
 	t_philo		*philo;
-	t_timestamp	current_time_ms;
 
 	i = 0;
 	philo = head;
@@ -66,11 +65,7 @@ static bool	is_anyone_dead(t_philo *head)
 	{
 		if (is_dead(philo))
 		{
-			current_time_ms = get_current_time_us() / 1000;
-			pthread_mutex_lock(&philo->info->system_status_mutex);
-			printf("%lld %d died\n", current_time_ms, philo->index);
-			head->info->is_system_stopped = true;
-			pthread_mutex_unlock(&head->info->system_status_mutex);
+			print_action(philo->info, DEAD, philo->index);
 			return (true);
 		}
 		philo = philo->next;

@@ -36,6 +36,7 @@ enum e_action
 	EATING,
 	SLEEPING,
 	THINKING,
+	DEAD,
 };
 
 struct s_philo
