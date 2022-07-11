@@ -22,6 +22,9 @@
 # include <limits.h>
 # include <string.h>
 
+# define COLOR_RED "\033[31m"
+# define COLOR_RESET "\033[0m"
+
 # define CREATE_PHILO_INTERVAL 1500
 # define OBSERVE_INTERVAL 3000
 
