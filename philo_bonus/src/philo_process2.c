@@ -12,10 +12,22 @@
 
 #include "philo_bonus.h"
 
+static int	create_process_for_monitoring_someones_death(t_global_info *info);
+static int	create_process_for_monitoring_number_of_meals(t_global_info *info);
 static void	wait_until_someone_died(t_global_info *info);
 static void	wait_until_everyone_completed_eating(t_global_info *info);
 
-int	create_process_for_monitoring_someones_death(t_global_info *info)
+int	create_observer_process(t_global_info *info)
+{
+	if (0 <= info->n_of_times_each_philo_must_eat && \
+		create_process_for_monitoring_number_of_meals(info))
+		return (1);
+	if (create_process_for_monitoring_someones_death(info))
+		return (1);
+	return (0);
+}
+
+static int	create_process_for_monitoring_someones_death(t_global_info *info)
 {
 	info->death_observer_pid = fork();
 	if (info->death_observer_pid < 0)
@@ -25,7 +37,7 @@ int	create_process_for_monitoring_someones_death(t_global_info *info)
 	return (0);
 }
 
-int	create_process_for_monitoring_number_of_meals(t_global_info *info)
+static int	create_process_for_monitoring_number_of_meals(t_global_info *info)
 {
 	info->eat_count_observer_pid = fork();
 	if (info->eat_count_observer_pid < 0)

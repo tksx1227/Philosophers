@@ -23,11 +23,11 @@ int	main(int argc, char **argv)
 		print_usage();
 		return (1);
 	}
-	if (init_global_info(&info, params))
+	if (init_global_info(&info, params) || \
+		init_philos(&info, &philos))
 		return (1);
-	if (init_philos(&info, &philos))
-		return (1);
-	if (create_philo_processes(philos))
+	if (create_observer_process(&info) || \
+		create_philo_processes(philos))
 		return (1);
 	if (wait_any_one_process())
 		return (1);

@@ -91,6 +91,7 @@ int			parse_args(int params[], int argc, char **argv);
 int			init_global_info(t_global_info *info, int params[]);
 int			msleep_precise(unsigned int ms);
 void		print_usage(void);
+void		ft_putstr_fd(char const *s, int fd);
 t_timestamp	get_current_time_us(void);
 size_t		ft_strlen(char *str);
 char		*ft_strcpy(char *dst, char *src);
@@ -107,8 +108,7 @@ int			destroy_philos_sem(t_philo *head);
 int			wait_any_one_process(void);
 int			kill_all_process(t_philo *philos);
 int			create_philo_processes(t_philo *philos);
-int			create_process_for_monitoring_someones_death(t_global_info *info);
-int			create_process_for_monitoring_number_of_meals(t_global_info *info);
+int			create_observer_process(t_global_info *info);
 
 /* Philo Actions */
 int			take_two_forks(t_philo *philo);

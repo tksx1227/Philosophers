@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 11:27:17 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/11 11:33:56 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/11 17:44:39 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	wait_any_one_process(void)
 	exit_status_code = WEXITSTATUS(wstatus);
 	if (exit_status_code != EXIT_COMPLETED_EATING && \
 		exit_status_code != EXIT_SOMEONE_DIED)
+	{
+		ft_putstr_fd("FATAL ERROR\n", STDERR_FILENO);
 		return (1);
+	}
 	return (0);
 }
 

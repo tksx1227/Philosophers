@@ -12,8 +12,6 @@
 
 #include "philo_bonus.h"
 
-static void	ft_putstr_fd(char const *s, int fd);
-
 int	init_global_info(t_global_info *info, int params[])
 {
 	info->n_of_philos = params[0];
@@ -58,6 +56,24 @@ t_timestamp	get_current_time_us(void)
 	return (us);
 }
 
+void	ft_putstr_fd(char const *s, int fd)
+{
+	size_t	len;
+
+	if (s == NULL)
+		return ;
+	len = 0;
+	while (s[len] != '\0')
+		len++;
+	while (INT_MAX < len)
+	{
+		write(fd, s, INT_MAX);
+		s += INT_MAX;
+		len -= INT_MAX;
+	}
+	write(fd, s, len);
+}
+
 void	print_usage(void)
 {
 	ft_putstr_fd("Usage: philo_bonus <NUMBER_OF_PHILOSOPHERS> <TIME_TO_DIE> "
@@ -81,22 +97,4 @@ void	print_usage(void)
 	ft_putstr_fd("  - NUMBER_OF_TIMES_EACH_PHILOSOPHER_MUST_EAT: "
 		"The number of meals each philosopher needs to stop the simulation.\n",
 		STDERR_FILENO);
-}
-
-static void	ft_putstr_fd(char const *s, int fd)
-{
-	size_t	len;
-
-	if (s == NULL)
-		return ;
-	len = 0;
-	while (s[len] != '\0')
-		len++;
-	while (INT_MAX < len)
-	{
-		write(fd, s, INT_MAX);
-		s += INT_MAX;
-		len -= INT_MAX;
-	}
-	write(fd, s, len);
 }
