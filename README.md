@@ -95,3 +95,13 @@ $ ./bin/philo 5 500 250 250
 1657759159209 2 is eating
 1657759159458 2 died
 ```
+
+A simple test case is defined in the Makefile, which can also be used.
+
+```bash
+$ make test1
+$ make test2
+$ make test3
+$ make test4
+$ make test5
+```
