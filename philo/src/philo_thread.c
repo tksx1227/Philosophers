@@ -55,7 +55,8 @@ int	destroy_all_mutex(t_philo *head)
 	n_of_philos = head->info->n_of_philos;
 	while (i < n_of_philos)
 	{
-		if (pthread_mutex_destroy(&philo->fork_mutex))
+		if (pthread_mutex_destroy(&philo->fork_mutex) || \
+			pthread_mutex_destroy(&philo->eating_status_mutex))
 			return (1);
 		philo = philo->next;
 		i++;

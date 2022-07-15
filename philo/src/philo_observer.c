@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 23:37:44 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/03 15:35:58 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/15 10:51:15 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ static bool	is_completed_eating(t_philo *philo)
 	int		max_limit;
 	size_t	eat_count;
 
-	pthread_mutex_lock(&philo->info->system_status_mutex);
+	pthread_mutex_lock(&philo->eating_status_mutex);
 	eat_count = philo->eat_count;
-	pthread_mutex_unlock(&philo->info->system_status_mutex);
+	pthread_mutex_unlock(&philo->eating_status_mutex);
 	max_limit = philo->info->n_of_times_each_philo_must_eat;
 	if ((size_t)max_limit <= eat_count)
 		return (true);
@@ -94,9 +94,9 @@ static bool	is_dead(t_philo *philo)
 	t_timestamp	current_time_us;
 	t_timestamp	time_to_die_us;
 
-	pthread_mutex_lock(&philo->info->system_status_mutex);
+	pthread_mutex_lock(&philo->eating_status_mutex);
 	last_ate_at_us = philo->last_ate_at_us;
-	pthread_mutex_unlock(&philo->info->system_status_mutex);
+	pthread_mutex_unlock(&philo->eating_status_mutex);
 	current_time_us = get_current_time_us();
 	time_to_die_us = (t_timestamp)philo->info->time_to_die * 1000;
 	if (time_to_die_us < current_time_us - last_ate_at_us)

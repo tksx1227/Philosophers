@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:00:29 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/04 17:58:56 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/15 10:47:48 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ enum e_action
 struct s_philo
 {
 	int				index;
-	pthread_t		thread;
-	pthread_mutex_t	fork_mutex;
+	size_t			eat_count;
 	t_philo			*prev;
 	t_philo			*next;
-	size_t			eat_count;
+	pthread_t		thread;
 	t_timestamp		last_ate_at_us;
 	t_global_info	*info;
+	pthread_mutex_t	fork_mutex;
+	pthread_mutex_t	eating_status_mutex;
 };
 
 struct s_global_info

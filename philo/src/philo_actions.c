@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 12:43:47 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/02 15:07:08 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/15 10:49:59 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	do_eating(t_philo *philo)
 		return (1);
 	}
 	msleep_precise(philo->info->time_to_eat);
-	pthread_mutex_lock(&philo->info->system_status_mutex);
+	pthread_mutex_lock(&philo->eating_status_mutex);
 	philo->last_ate_at_us = get_current_time_us();
 	philo->eat_count++;
-	pthread_mutex_unlock(&philo->info->system_status_mutex);
+	pthread_mutex_unlock(&philo->eating_status_mutex);
 	return (0);
 }
 

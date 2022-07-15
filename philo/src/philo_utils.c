@@ -6,7 +6,7 @@
 /*   By: ttomori <ttomori@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 18:37:25 by ttomori           #+#    #+#             */
-/*   Updated: 2022/07/03 15:09:51 by ttomori          ###   ########.fr       */
+/*   Updated: 2022/07/15 10:48:58 by ttomori          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ static t_philo	*get_new_philo(int index, t_global_info *info)
 	philo->eat_count = 0;
 	philo->last_ate_at_us = get_current_time_us();
 	philo->info = info;
-	if (pthread_mutex_init(&philo->fork_mutex, NULL))
+	if (pthread_mutex_init(&philo->fork_mutex, NULL) || \
+		pthread_mutex_init(&philo->eating_status_mutex, NULL))
 	{
 		free(philo);
 		return (NULL);
